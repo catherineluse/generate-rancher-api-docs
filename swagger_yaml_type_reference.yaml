@@ -1,0 +1,8585 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+tags:
+- name: "pet"
+  description: "Everything about your Pets"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "store"
+  description: "Access to Petstore orders"
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+
+definitions:
+  action:
+    properties:
+      input:
+        type: string
+      output:
+        type: string
+    type: object
+  activeDirectoryConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      certificate:
+        type: string
+      connectionTimeout:
+        default: 5000
+        type: int
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      defaultLoginDomain:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupDNAttribute:
+        default: distinguishedName
+        type: string
+      groupMemberMappingAttribute:
+        default: member
+        type: string
+      groupMemberUserAttribute:
+        default: distinguishedName
+        type: string
+      groupNameAttribute:
+        default: name
+        type: string
+      groupObjectClass:
+        default: group
+        type: string
+      groupSearchAttribute:
+        default: sAMAccountName
+        type: string
+      groupSearchBase:
+        type: string
+      groupSearchFilter:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      nestedGroupMembershipEnabled:
+        default: false
+        type: boolean
+      ownerReferences:
+        type: array[ownerReference]
+      port:
+        default: 389
+        type: int
+      removed:
+        type: date
+      servers:
+        type: array[string]
+      serviceAccountPassword:
+        type: password
+      serviceAccountUsername:
+        type: string
+      tls:
+        default: false
+        type: boolean
+      type:
+        type: string
+      userDisabledBitMask:
+        default: 2
+        type: int
+      userEnabledAttribute:
+        default: userAccountControl
+        type: string
+      userLoginAttribute:
+        default: sAMAccountName
+        type: string
+      userNameAttribute:
+        default: name
+        type: string
+      userObjectClass:
+        default: person
+        type: string
+      userSearchAttribute:
+        default: sAMAccountName|sn|givenName
+        type: string
+      userSearchBase:
+        type: string
+      userSearchFilter:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupObjectClass
+    - userSearchBase
+    - servers
+    - userNameAttribute
+    - serviceAccountPassword
+    - groupSearchAttribute
+    - accessMode
+    - groupMemberMappingAttribute
+    - groupDNAttribute
+    - groupMemberUserAttribute
+    - groupNameAttribute
+    - userLoginAttribute
+    - serviceAccountUsername
+    - userSearchAttribute
+    - userEnabledAttribute
+    - connectionTimeout
+    - userObjectClass
+    type: object
+  activeDirectoryTestAndApplyInput:
+    properties:
+      activeDirectoryConfig:
+        type: activeDirectoryConfig
+      enabled:
+        default: false
+        type: boolean
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  adfsConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      displayNameField:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupsField:
+        type: string
+      idpMetadataContent:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherApiHost:
+        type: string
+      removed:
+        type: date
+      spCert:
+        type: string
+      spKey:
+        type: password
+      type:
+        type: string
+      uidField:
+        type: string
+      userNameField:
+        type: string
+      uuid:
+        type: string
+    required:
+    - userNameField
+    - idpMetadataContent
+    - displayNameField
+    - accessMode
+    - uidField
+    - rancherApiHost
+    - spCert
+    - groupsField
+    - spKey
+    type: object
+  alertStatus:
+    properties:
+      alertState:
+        default: active
+        options:
+        - active
+        - inactive
+        - alerting
+        - muted
+        type: enum
+    type: object
+  allowedCSIDriver:
+    properties:
+      name:
+        type: string
+    type: object
+  allowedFlexVolume:
+    properties:
+      driver:
+        type: string
+    type: object
+  allowedHostPath:
+    properties:
+      pathPrefix:
+        type: string
+      readOnly:
+        default: false
+        type: boolean
+    type: object
+  amazonElasticContainerServiceConfig:
+    properties:
+      accessKey:
+        default: ''
+        description: The AWS Client ID to use
+        type: string
+      ami:
+        default: ''
+        description: A custom AMI ID to use for the worker nodes instead of the default
+        type: string
+      associateWorkerNodePublicIp:
+        default: true
+        description: A custom AMI ID to use for the worker nodes instead of the default
+        type: boolean
+      desiredNodes:
+        default: 3
+        description: The desired number of worker nodes
+        type: int
+      displayName:
+        default: ''
+        description: The displayed name of the cluster in the Rancher UI
+        type: string
+      driverName:
+        default: amazonelasticcontainerservice
+        type: string
+      ebsEncryption:
+        default: false
+        description: Enables EBS encryption of worker nodes
+        type: boolean
+      instanceType:
+        default: t2.medium
+        description: The type of machine to use for worker nodes
+        type: string
+      keyPairName:
+        default: ''
+        description: Allow user to specify key name to use
+        type: string
+      kubernetesVersion:
+        default: '1.13'
+        description: The kubernetes master version
+        type: string
+      maximumNodes:
+        default: 3
+        description: The maximum number of worker nodes
+        type: int
+      minimumNodes:
+        default: 1
+        description: The minimum number of worker nodes
+        type: int
+      nodeVolumeSize:
+        default: 20
+        description: The volume size for each node
+        type: int
+      region:
+        default: us-west-2
+        description: The AWS Region to create the EKS cluster in
+        type: string
+      secretKey:
+        default: ''
+        description: The AWS Client Secret associated with the Client ID
+        type: password
+      securityGroups:
+        description: Comma-separated list of security groups to use for the cluster
+        type: array[string]
+      serviceRole:
+        default: ''
+        description: The service role to use to perform the cluster operations in
+          AWS
+        type: string
+      sessionToken:
+        default: ''
+        description: A session token to use with the client key and secret if applicable.
+        type: string
+      subnets:
+        description: Comma-separated list of subnets in the virtual network to use
+        type: array[string]
+      userData:
+        default: '#!/bin/bash
+
+          set -o xtrace
+
+          /etc/eks/bootstrap.sh ${ClusterName} ${BootstrapArguments}/opt/aws/bin/cfn-signal
+          --exit-code $? --stack  ${AWS::StackName} --resource NodeGroup --region
+          ${AWS::Region}
+
+          '
+        description: Pass user-data to the nodes to perform automated configuration
+          tasks
+        type: string
+      virtualNetwork:
+        default: ''
+        description: The name of the virtual network to use
+        type: string
+    type: object
+  amazonec2config:
+    properties:
+      accessKey:
+        default: ''
+        description: AWS Access Key
+        type: string
+      ami:
+        default: ''
+        description: AWS machine image
+        type: string
+      blockDurationMinutes:
+        default: '0'
+        description: AWS spot instance duration in minutes (60, 120, 180, 240, 300,
+          or 360)
+        type: string
+      deviceName:
+        default: /dev/sda1
+        description: AWS root device name
+        type: string
+      encryptEbsVolume:
+        default: false
+        description: Encrypt the EBS volume using the AWS Managed CMK
+        type: boolean
+      endpoint:
+        default: ''
+        description: Optional endpoint URL (hostname only or fully qualified URI)
+        type: string
+      iamInstanceProfile:
+        default: ''
+        description: AWS IAM Instance Profile
+        type: string
+      insecureTransport:
+        default: false
+        description: Disable SSL when sending requests
+        type: boolean
+      instanceType:
+        default: t2.micro
+        description: AWS instance type
+        type: string
+      keypairName:
+        default: ''
+        description: AWS keypair to use; requires --amazonec2-ssh-keypath
+        type: string
+      monitoring:
+        default: false
+        description: Set this flag to enable CloudWatch monitoring
+        type: boolean
+      openPort:
+        description: Make the specified port number accessible from the Internet
+        type: array[string]
+      privateAddressOnly:
+        default: false
+        description: Only use a private IP address
+        type: boolean
+      region:
+        default: us-east-1
+        description: AWS region
+        type: string
+      requestSpotInstance:
+        default: false
+        description: Set this flag to request spot instance
+        type: boolean
+      retries:
+        default: '5'
+        description: Set retry count for recoverable failures (use -1 to disable)
+        type: string
+      rootSize:
+        default: '16'
+        description: AWS root disk size (in GB)
+        type: string
+      secretKey:
+        default: ''
+        description: AWS Secret Key
+        type: password
+      securityGroup:
+        default:
+        - rancher-nodes
+        description: AWS VPC security group
+        type: array[string]
+      securityGroupReadonly:
+        default: false
+        description: Skip adding default rules to security groups
+        type: boolean
+      sessionToken:
+        default: ''
+        description: AWS Session Token
+        type: string
+      spotPrice:
+        default: '0.50'
+        description: AWS spot instance bid price (in dollar)
+        type: string
+      sshKeyContents:
+        default: ''
+        description: File contents for sshKeyContents
+        type: password
+      sshUser:
+        default: ubuntu
+        description: Set the name of the ssh user
+        type: string
+      subnetId:
+        default: ''
+        description: AWS VPC subnet id
+        type: string
+      tags:
+        default: ''
+        description: AWS Tags (e.g. key1,value1,key2,value2)
+        type: string
+      useEbsOptimizedInstance:
+        default: false
+        description: Create an EBS optimized instance
+        type: boolean
+      usePrivateAddress:
+        default: false
+        description: Force the usage of private IP address
+        type: boolean
+      userdata:
+        default: ''
+        description: File contents for userdata
+        type: string
+      volumeType:
+        default: gp2
+        description: Amazon EBS volume type
+        type: string
+      vpcId:
+        default: ''
+        description: AWS VPC id
+        type: string
+      zone:
+        default: a
+        description: AWS zone for instance (i.e. a,b,c,d,e)
+        type: string
+    type: object
+  amazonec2credentialconfig:
+    properties:
+      accessKey:
+        default: ''
+        description: AWS Access Key
+        type: string
+      region:
+        default: us-east-1
+        description: AWS region
+        type: string
+      secretKey:
+        default: ''
+        description: AWS Secret Key
+        type: password
+    required:
+    - secretKey
+    - accessKey
+    - region
+    type: object
+  answer:
+    properties:
+      clusterId:
+        type: reference[cluster]
+      projectId:
+        type: reference[project]
+      values:
+        type: map[string]
+    required:
+    - values
+    type: object
+  appCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  attachedVolume:
+    properties:
+      name:
+        type: string
+    type: object
+  auditLog:
+    properties:
+      configuration:
+        type: auditLogConfig
+      enabled:
+        default: false
+        type: boolean
+    type: object
+  auditLogConfig:
+    properties:
+      format:
+        type: string
+      maxAge:
+        default: 0
+        type: int
+      maxBackup:
+        default: 0
+        type: int
+      maxSize:
+        default: 0
+        type: int
+      path:
+        type: string
+      policy:
+        type: map[json]
+    type: object
+  authConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      type:
+        type: string
+      uuid:
+        type: string
+    required:
+    - accessMode
+    type: object
+  authWebhookConfig:
+    properties:
+      cacheTimeout:
+        type: string
+      configFile:
+        type: string
+    type: object
+  authnConfig:
+    properties:
+      sans:
+        type: array[string]
+      strategy:
+        default: x509
+        type: string
+      webhook:
+        type: authWebhookConfig
+    type: object
+  authzConfig:
+    properties:
+      mode:
+        type: string
+      options:
+        type: map[string]
+    type: object
+  awsCloudProvider:
+    properties:
+      global:
+        type: globalAwsOpts
+      serviceOverride:
+        type: map[serviceOverride]
+    type: object
+  azureADConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      applicationId:
+        type: string
+      applicationSecret:
+        type: password
+      authEndpoint:
+        type: string
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      endpoint:
+        default: https://login.microsoftonline.com/
+        type: string
+      graphEndpoint:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherUrl:
+        type: string
+      removed:
+        type: date
+      tenantId:
+        type: string
+      tokenEndpoint:
+        type: string
+      type:
+        type: string
+      uuid:
+        type: string
+    required:
+    - applicationSecret
+    - accessMode
+    - rancherUrl
+    - endpoint
+    - tokenEndpoint
+    - tenantId
+    - graphEndpoint
+    - applicationId
+    - authEndpoint
+    type: object
+  azureADConfigApplyInput:
+    properties:
+      code:
+        type: string
+      config:
+        type: azureADConfig
+    type: object
+  azureADConfigTestOutput:
+    properties:
+      redirectUrl:
+        type: string
+    type: object
+  azureCloudProvider:
+    properties:
+      aadClientCertPassword:
+        type: password
+      aadClientCertPath:
+        type: string
+      aadClientId:
+        type: string
+      aadClientSecret:
+        type: password
+      cloud:
+        type: string
+      cloudProviderBackoff:
+        default: false
+        type: boolean
+      cloudProviderBackoffDuration:
+        default: 0
+        type: int
+      cloudProviderBackoffExponent:
+        default: 0
+        type: int
+      cloudProviderBackoffJitter:
+        default: 0
+        type: int
+      cloudProviderBackoffRetries:
+        default: 0
+        type: int
+      cloudProviderRateLimit:
+        default: false
+        type: boolean
+      cloudProviderRateLimitBucket:
+        default: 0
+        type: int
+      cloudProviderRateLimitQPS:
+        default: 0
+        type: int
+      excludeMasterFromStandardLB:
+        type: boolean
+      loadBalancerSku:
+        type: string
+      location:
+        type: string
+      maximumLoadBalancerRuleCount:
+        default: 0
+        type: int
+      primaryAvailabilitySetName:
+        type: string
+      primaryScaleSetName:
+        type: string
+      resourceGroup:
+        type: string
+      routeTableName:
+        type: string
+      securityGroupName:
+        type: string
+      subnetName:
+        type: string
+      subscriptionId:
+        type: string
+      tenantId:
+        type: string
+      useInstanceMetadata:
+        default: false
+        type: boolean
+      useManagedIdentityExtension:
+        default: false
+        type: boolean
+      userAssignedIdentityID:
+        type: string
+      vmType:
+        type: string
+      vnetName:
+        type: string
+      vnetResourceGroup:
+        type: string
+    type: object
+  azureKubernetesServiceConfig:
+    properties:
+      aadClientAppId:
+        default: ''
+        description: The ID of an Azure Active Directory client application of type
+          "Native". This application is for user login via kubectl.
+        type: string
+      aadServerAppId:
+        default: ''
+        description: The ID of an Azure Active Directory server application of type
+          "Web app/API". This application represents the managed cluster's apiserver
+          (Server application).
+        type: string
+      aadServerAppSecret:
+        default: ''
+        description: The secret of an Azure Active Directory server application.
+        type: string
+      aadTenantId:
+        default: ''
+        description: The ID of an Azure Active Directory tenant.
+        type: string
+      adminUsername:
+        default: azureuser
+        description: The administrator username to use for Linux hosts.
+        type: string
+      agentOsdiskSize:
+        default: 0
+        description: GB size to be used to specify the disk for every machine in the
+          agent pool. If you specify 0, it will apply the default according to the
+          "agent vm size" specified.
+        type: int
+      agentPoolName:
+        default: agentpool0
+        description: Name for the agent pool, upto 12 alphanumeric characters.
+        type: string
+      agentStorageProfile:
+        default: ManagedDisks
+        description: Storage profile specifies what kind of storage used on machine
+          in the agent pool. Chooses from [ManagedDisks StorageAccount].
+        type: string
+      agentVmSize:
+        default: Standard_D1_v2
+        description: Size of machine in the agent pool.
+        type: string
+      authBaseUrl:
+        default: https://login.microsoftonline.com/
+        description: Different authentication API url to use.
+        type: string
+      baseUrl:
+        default: https://management.azure.com/
+        description: Different resource management API url to use.
+        type: string
+      clientId:
+        default: ''
+        description: Azure client ID to use.
+        type: string
+      clientSecret:
+        default: ''
+        description: Azure client secret associated with the "client id".
+        type: password
+      count:
+        default: 1
+        description: Number of machines (VMs) in the agent pool. Allowed values must
+          be in the range of 1 to 100 (inclusive).
+        type: int
+      displayName:
+        default: ''
+        description: The displayed name of the cluster in the Rancher UI.
+        type: string
+      dnsServiceIp:
+        default: 10.0.0.10
+        description: An IP address assigned to the Kubernetes DNS service. It must
+          be within the Kubernetes Service address range specified in "service cidr".
+        type: string
+      dockerBridgeCidr:
+        default: 172.17.0.1/16
+        description: A CIDR notation IP range assigned to the Docker bridge network.
+          It must not overlap with any Subnet IP ranges or the Kubernetes Service
+          address range specified in "service cidr".
+        type: string
+      driverName:
+        default: azurekubernetesservice
+        type: string
+      enableHttpApplicationRouting:
+        default: false
+        description: Enable the Kubernetes ingress with automatic public DNS name
+          creation.
+        type: boolean
+      enableMonitoring:
+        default: true
+        description: Turn on Azure Log Analytics monitoring. Uses the Log Analytics
+          "Default" workspace if it exists, else creates one. if using an existing
+          workspace, specifies "log analytics workspace resource id".
+        type: boolean
+      kubernetesVersion:
+        default: 1.11.5
+        description: Specify the version of Kubernetes.
+        type: string
+      location:
+        default: eastus
+        description: Azure Kubernetes cluster location.
+        type: string
+      logAnalyticsWorkspace:
+        default: ''
+        description: The name of an existing Azure Log Analytics Workspace to use
+          for storing monitoring data. If not specified, uses '{resource group}-{subscription
+          id}-{location code}'.
+        type: string
+      logAnalyticsWorkspaceResourceGroup:
+        default: ''
+        description: The resource group of an existing Azure Log Analytics Workspace
+          to use for storing monitoring data. If not specified, uses the 'Cluster'
+          resource group.
+        type: string
+      masterDnsPrefix:
+        default: ''
+        description: DNS prefix to use the Kubernetes cluster control pane.
+        type: string
+      maxPods:
+        default: 110
+        description: Maximum number of pods that can run on a node.
+        type: int
+      name:
+        default: ''
+        description: The name of the 'Cluster' resource, and the internal name of
+          the cluster in Rancher.
+        type: string
+      networkPlugin:
+        default: azure
+        description: Network plugin used for building Kubernetes network. Chooses
+          from [azure kubenet].
+        type: string
+      networkPolicy:
+        default: ''
+        description: Network policy used for building Kubernetes network. Chooses
+          from [calico].
+        type: string
+      podCidr:
+        default: 172.244.0.0/16
+        description: A CIDR notation IP range from which to assign Kubernetes Pod
+          IPs when "network plugin" is specified in "kubenet".
+        type: string
+      resourceGroup:
+        default: ''
+        description: The name of the 'Cluster' resource group.
+        type: string
+      serviceCidr:
+        default: 10.0.0.0/16
+        description: A CIDR notation IP range from which to assign Kubernetes Service
+          cluster IPs. It must not overlap with any Subnet IP ranges.
+        type: string
+      sshPublicKeyContents:
+        default: ''
+        description: Contents of the SSH public key used to authenticate with Linux
+          hosts. Opposite to "ssh public key".
+        type: string
+      subnet:
+        default: ''
+        description: The name of an existing Azure Virtual Subnet. Composite of agent
+          virtual network subnet ID.
+        type: string
+      subscriptionId:
+        default: ''
+        description: Subscription credentials which uniquely identify Microsoft Azure
+          subscription.
+        type: string
+      tags:
+        description: Tags for Kubernetes cluster. For example, foo=bar.
+        type: array[string]
+      tenantId:
+        default: ''
+        description: Azure tenant ID to use.
+        type: string
+      virtualNetwork:
+        default: ''
+        description: The name of an existing Azure Virtual Network. Composite of agent
+          virtual network subnet ID.
+        type: string
+      virtualNetworkResourceGroup:
+        default: ''
+        description: The resource group of an existing Azure Virtual Network. Composite
+          of agent virtual network subnet ID.
+        type: string
+    type: object
+  azureconfig:
+    properties:
+      availabilitySet:
+        default: docker-machine
+        description: Azure Availability Set to place the virtual machine into
+        type: string
+      clientId:
+        default: ''
+        description: Azure Service Principal Account ID (optional, browser auth is
+          used if not specified)
+        type: string
+      clientSecret:
+        default: ''
+        description: Azure Service Principal Account password (optional, browser auth
+          is used if not specified)
+        type: password
+      customData:
+        default: ''
+        description: File contents for customData
+        type: string
+      diskSize:
+        default: '30'
+        description: Disk size if using managed disk
+        type: string
+      dns:
+        default: ''
+        description: A unique DNS label for the public IP adddress
+        type: string
+      dockerPort:
+        default: '2376'
+        description: Port number for Docker engine
+        type: string
+      environment:
+        default: AzurePublicCloud
+        description: Azure environment (e.g. AzurePublicCloud, AzureChinaCloud)
+        type: string
+      faultDomainCount:
+        default: '3'
+        description: Fault domain count to use for availability set
+        type: string
+      image:
+        default: canonical:UbuntuServer:18.04-LTS:latest
+        description: Azure virtual machine OS image
+        type: string
+      location:
+        default: westus
+        description: Azure region to create the virtual machine
+        type: string
+      managedDisks:
+        default: false
+        description: Configures VM and availability set for managed disks
+        type: boolean
+      noPublicIp:
+        default: false
+        description: Do not create a public IP address for the machine
+        type: boolean
+      openPort:
+        description: Make the specified port number accessible from the Internet
+        type: array[string]
+      privateIpAddress:
+        default: ''
+        description: Specify a static private IP address for the machine
+        type: string
+      resourceGroup:
+        default: docker-machine
+        description: Azure Resource Group name (will be created if missing)
+        type: string
+      size:
+        default: Standard_D2_v2
+        description: Size for Azure Virtual Machine
+        type: string
+      sshUser:
+        default: docker-user
+        description: Username for SSH login
+        type: string
+      staticPublicIp:
+        default: false
+        description: Assign a static public IP address to the machine
+        type: boolean
+      storageType:
+        default: Standard_LRS
+        description: Type of Storage Account to host the OS Disk for the machine
+        type: string
+      subnet:
+        default: docker-machine
+        description: Azure Subnet Name to be used within the Virtual Network
+        type: string
+      subnetPrefix:
+        default: 192.168.0.0/16
+        description: Private CIDR block to be used for the new subnet, should comply
+          RFC 1918
+        type: string
+      subscriptionId:
+        default: ''
+        description: Azure Subscription ID
+        type: string
+      updateDomainCount:
+        default: '5'
+        description: Update domain count to use for availability set
+        type: string
+      usePrivateIp:
+        default: false
+        description: Use private IP address of the machine to connect
+        type: boolean
+      vnet:
+        default: docker-machine-vnet
+        description: Azure Virtual Network name to connect the virtual machine (in
+          [resourcegroup:]name format)
+        type: string
+    type: object
+  azurecredentialconfig:
+    properties:
+      clientId:
+        default: ''
+        description: Azure Service Principal Account ID (optional, browser auth is
+          used if not specified)
+        type: string
+      clientSecret:
+        default: ''
+        description: Azure Service Principal Account password (optional, browser auth
+          is used if not specified)
+        type: password
+      subscriptionId:
+        default: ''
+        description: Azure Subscription ID
+        type: string
+    required:
+    - clientSecret
+    - subscriptionId
+    - clientId
+    type: object
+  backupConfig:
+    properties:
+      enabled:
+        default: true
+        type: boolean
+      intervalHours:
+        default: 12
+        type: int
+      retention:
+        default: 6
+        type: int
+      s3BackupConfig:
+        type: s3BackupConfig
+      safeTimestamp:
+        default: false
+        type: boolean
+    type: object
+  bastionHost:
+    properties:
+      address:
+        type: string
+      port:
+        type: string
+      sshAgentAuth:
+        default: false
+        type: boolean
+      sshCert:
+        type: string
+      sshCertPath:
+        type: string
+      sshKey:
+        type: password
+      sshKeyPath:
+        type: string
+      user:
+        type: string
+    type: object
+  blockStorageOpenstackOpts:
+    properties:
+      bs-version:
+        type: string
+      ignore-volume-az:
+        default: false
+        type: boolean
+      trust-device-path:
+        default: false
+        type: boolean
+    type: object
+  calicoNetworkProvider:
+    properties:
+      cloudProvider:
+        type: string
+    type: object
+  canalNetworkProvider:
+    properties:
+      iface:
+        type: string
+    type: object
+  capabilities:
+    properties:
+      ingressCapabilities:
+        type: array[ingressCapabilities]
+      loadBalancerCapabilities:
+        type: loadBalancerCapabilities
+      nodePoolScalingSupported:
+        default: false
+        type: boolean
+      nodePortRange:
+        type: string
+      pspEnabled:
+        default: false
+        type: boolean
+      taintSupport:
+        type: boolean
+    type: object
+  catalog:
+    properties:
+      annotations:
+        type: map[string]
+      branch:
+        type: string
+      commit:
+        type: string
+      conditions:
+        type: array[catalogCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      helmVersion:
+        type: string
+      kind:
+        type: string
+      labels:
+        type: map[string]
+      lastRefreshTimestamp:
+        type: string
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      password:
+        type: password
+      removed:
+        type: date
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      url:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+    required:
+    - url
+    type: object
+  catalogCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  catalogRefresh:
+    properties:
+      catalogs:
+        type: array[string]
+    type: object
+  certExpiration:
+    properties:
+      expirationDate:
+        type: string
+    type: object
+  changePasswordInput:
+    properties:
+      currentPassword:
+        type: string
+      newPassword:
+        type: string
+    required:
+    - newPassword
+    - currentPassword
+    type: object
+  cisBenchmarkVersion:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      info:
+        type: cisBenchmarkVersionInfo
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  cisBenchmarkVersionInfo:
+    properties:
+      managed:
+        default: false
+        type: boolean
+      minKubernetesVersion:
+        type: string
+      notApplicableChecks:
+        type: map[string]
+      skippedChecks:
+        type: map[string]
+    type: object
+  cisConfig:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      params:
+        type: cisConfigParams
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  cisConfigParams:
+    properties:
+      benchmarkVersion:
+        type: string
+    type: object
+  cisScanConfig:
+    properties:
+      debugMaster:
+        default: false
+        type: boolean
+      debugWorker:
+        default: false
+        type: boolean
+      overrideBenchmarkVersion:
+        type: string
+      overrideSkip:
+        type: array[string]
+      profile:
+        default: permissive
+        options:
+        - permissive
+        - hardened
+        type: enum
+    required:
+    - profile
+    type: object
+  cisScanStatus:
+    properties:
+      fail:
+        default: 0
+        type: int
+      notApplicable:
+        default: 0
+        type: int
+      pass:
+        default: 0
+        type: int
+      skip:
+        default: 0
+        type: int
+      total:
+        default: 0
+        type: int
+    type: object
+  cloudCredential:
+    properties:
+      amazonec2credentialConfig:
+        type: amazonec2credentialconfig
+      annotations:
+        type: map[string]
+      azurecredentialConfig:
+        type: azurecredentialconfig
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      digitaloceancredentialConfig:
+        type: digitaloceancredentialconfig
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      linodecredentialConfig:
+        type: linodecredentialconfig
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+      vmwarevspherecredentialConfig:
+        type: vmwarevspherecredentialconfig
+    type: object
+  cloudProvider:
+    properties:
+      awsCloudProvider:
+        type: awsCloudProvider
+      azureCloudProvider:
+        type: azureCloudProvider
+      customCloudProvider:
+        type: string
+      name:
+        type: string
+      openstackCloudProvider:
+        type: openstackCloudProvider
+      vsphereCloudProvider:
+        type: vsphereCloudProvider
+    type: object
+  cluster:
+    properties:
+      agentFeatures:
+        type: map[boolean]
+      agentImage:
+        type: string
+      agentImageOverride:
+        type: string
+      allocatable:
+        type: map[string]
+      amazonElasticContainerServiceConfig:
+        type: amazonElasticContainerServiceConfig
+      annotations:
+        type: map[string]
+      answers:
+        type: answer
+      apiEndpoint:
+        type: string
+      appliedEnableNetworkPolicy:
+        default: false
+        type: boolean
+      appliedPodSecurityPolicyTemplateId:
+        type: string
+      appliedSpec:
+        type: clusterSpec
+      authImage:
+        type: string
+      azureKubernetesServiceConfig:
+        type: azureKubernetesServiceConfig
+      caCert:
+        type: string
+      capabilities:
+        type: capabilities
+      capacity:
+        type: map[string]
+      certificatesExpiration:
+        type: map[certExpiration]
+      clusterTemplateId:
+        type: reference[clusterTemplate]
+      clusterTemplateRevisionId:
+        type: reference[clusterTemplateRevision]
+      componentStatuses:
+        type: array[clusterComponentStatus]
+      conditions:
+        type: array[clusterCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      defaultClusterRoleForProjectMembers:
+        type: reference[roleTemplate]
+      defaultPodSecurityPolicyTemplateId:
+        type: reference[podSecurityPolicyTemplate]
+      description:
+        type: string
+      desiredAgentImage:
+        type: string
+      desiredAuthImage:
+        type: string
+      dockerRootDir:
+        default: /var/lib/docker
+        type: string
+      driver:
+        type: string
+      enableClusterAlerting:
+        default: false
+        type: boolean
+      enableClusterMonitoring:
+        default: false
+        type: boolean
+      enableNetworkPolicy:
+        default: false
+        type: boolean
+      failedSpec:
+        type: clusterSpec
+      googleKubernetesEngineConfig:
+        type: googleKubernetesEngineConfig
+      id:
+        type: dnsLabel
+      importedConfig:
+        type: importedConfig
+      internal:
+        default: false
+        type: boolean
+      istioEnabled:
+        default: false
+        type: boolean
+      k3sConfig:
+        type: k3sConfig
+      labels:
+        type: map[string]
+      limits:
+        type: map[string]
+      localClusterAuthEndpoint:
+        type: localClusterAuthEndpoint
+      monitoringStatus:
+        type: monitoringStatus
+      name:
+        type: dnsLabel
+      nodeVersion:
+        default: 0
+        type: int
+      ownerReferences:
+        type: array[ownerReference]
+      questions:
+        type: array[question]
+      rancherKubernetesEngineConfig:
+        type: rancherKubernetesEngineConfig
+      removed:
+        type: date
+      requested:
+        type: map[string]
+      scheduledClusterScan:
+        type: scheduledClusterScan
+      scheduledClusterScanStatus:
+        type: scheduledClusterScanStatus
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      version:
+        type: info
+      windowsPreferedCluster:
+        default: false
+        type: boolean
+    type: object
+  clusterAlert:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      displayName:
+        type: string
+      initialWaitSeconds:
+        default: 180
+        min: 0
+        type: int
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      recipients:
+        type: array[recipient]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 0
+        type: int
+      severity:
+        default: critical
+        options:
+        - info
+        - critical
+        - warning
+        type: enum
+      state:
+        type: string
+      status:
+        type: alertStatus
+      targetEvent:
+        type: targetEvent
+      targetNode:
+        type: targetNode
+      targetSystemService:
+        type: targetSystemService
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - repeatIntervalSeconds
+    - severity
+    - initialWaitSeconds
+    - recipients
+    - displayName
+    type: object
+  clusterAlertGroup:
+    properties:
+      alertState:
+        default: active
+        options:
+        - active
+        - inactive
+        - alerting
+        - muted
+        type: enum
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      groupIntervalSeconds:
+        default: 180
+        min: 1
+        type: int
+      groupWaitSeconds:
+        default: 30
+        min: 1
+        type: int
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      recipients:
+        type: array[recipient]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 1
+        type: int
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupIntervalSeconds
+    - repeatIntervalSeconds
+    - groupWaitSeconds
+    - name
+    type: object
+  clusterAlertRule:
+    properties:
+      alertState:
+        default: active
+        options:
+        - active
+        - inactive
+        - alerting
+        - muted
+        type: enum
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      clusterScanRule:
+        type: clusterScanRule
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      eventRule:
+        type: eventRule
+      groupId:
+        type: reference[clusterAlertGroup]
+      groupIntervalSeconds:
+        default: 180
+        min: 1
+        type: int
+      groupWaitSeconds:
+        default: 30
+        min: 1
+        type: int
+      id:
+        type: dnsLabel
+      inherited:
+        default: true
+        type: boolean
+      labels:
+        type: map[string]
+      metricRule:
+        type: metricRule
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      nodeRule:
+        type: nodeRule
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 1
+        type: int
+      severity:
+        default: critical
+        options:
+        - info
+        - critical
+        - warning
+        type: enum
+      state:
+        type: string
+      systemServiceRule:
+        type: systemServiceRule
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - severity
+    - groupIntervalSeconds
+    - repeatIntervalSeconds
+    - groupWaitSeconds
+    type: object
+  clusterCatalog:
+    properties:
+      annotations:
+        type: map[string]
+      branch:
+        type: string
+      clusterId:
+        type: reference[cluster]
+      commit:
+        type: string
+      conditions:
+        type: array[catalogCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      helmVersion:
+        type: string
+      kind:
+        type: string
+      labels:
+        type: map[string]
+      lastRefreshTimestamp:
+        type: string
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      password:
+        type: password
+      removed:
+        type: date
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      url:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+    required:
+    - clusterId
+    - url
+    type: object
+  clusterComponentStatus:
+    properties:
+      conditions:
+        type: array[componentCondition]
+      name:
+        type: string
+    type: object
+  clusterCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  clusterLogging:
+    properties:
+      annotations:
+        type: map[string]
+      appliedSpec:
+        type: clusterLoggingSpec
+      clusterId:
+        type: reference[cluster]
+      conditions:
+        type: array[loggingCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      customTargetConfig:
+        type: customTargetConfig
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      enableJSONParsing:
+        default: false
+        type: boolean
+      failedSpec:
+        type: clusterLoggingSpec
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      id:
+        type: dnsLabel
+      includeSystemComponent:
+        default: true
+        type: boolean
+      kafkaConfig:
+        type: kafkaConfig
+      labels:
+        type: map[string]
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      outputFlushInterval:
+        default: 60
+        type: int
+      outputTags:
+        type: map[string]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      splunkConfig:
+        type: splunkConfig
+      state:
+        type: string
+      syslogConfig:
+        type: syslogConfig
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    type: object
+  clusterLoggingSpec:
+    properties:
+      clusterId:
+        type: reference[cluster]
+      customTargetConfig:
+        type: customTargetConfig
+      displayName:
+        type: string
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      enableJSONParsing:
+        default: false
+        type: boolean
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      includeSystemComponent:
+        default: true
+        type: boolean
+      kafkaConfig:
+        type: kafkaConfig
+      outputFlushInterval:
+        default: 60
+        type: int
+      outputTags:
+        type: map[string]
+      splunkConfig:
+        type: splunkConfig
+      syslogConfig:
+        type: syslogConfig
+    type: object
+  clusterMetricNamesInput:
+    properties:
+      clusterId:
+        type: reference[cluster]
+    type: object
+  clusterMonitorGraph:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      detailsMetricsSelector:
+        type: map[string]
+      displayResourceType:
+        options:
+        - node
+        - cluster
+        - etcd
+        - kube-component
+        - rancher-component
+        type: enum
+      graphType:
+        options:
+        - graph
+        - singlestat
+        type: enum
+      labels:
+        type: map[string]
+      metricsSelector:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      priority:
+        default: 0
+        type: int
+      removed:
+        type: date
+      resourceType:
+        options:
+        - node
+        - cluster
+        - etcd
+        - apiserver
+        - scheduler
+        - controllermanager
+        - fluentd
+        - istiocluster
+        - istioproject
+        type: enum
+      uuid:
+        type: string
+      yAxis:
+        type: yAxis
+    type: object
+  clusterRegistrationToken:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      command:
+        type: string
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      insecureCommand:
+        type: string
+      labels:
+        type: map[string]
+      manifestUrl:
+        type: string
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      nodeCommand:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      token:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      windowsNodeCommand:
+        type: string
+    required:
+    - clusterId
+    type: object
+  clusterRoleTemplateBinding:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      groupId:
+        type: reference[group]
+      groupPrincipalId:
+        type: reference[principal]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      roleTemplateId:
+        type: reference[roleTemplate]
+      userId:
+        type: reference[user]
+      userPrincipalId:
+        type: reference[principal]
+      uuid:
+        type: string
+    required:
+    - roleTemplateId
+    - clusterId
+    type: object
+  clusterScan:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      runType:
+        type: string
+      scanConfig:
+        type: clusterScanConfig
+      scanType:
+        type: string
+      state:
+        type: string
+      status:
+        type: clusterScanStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - clusterId
+    type: object
+  clusterScanCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  clusterScanConfig:
+    properties:
+      cisScanConfig:
+        type: cisScanConfig
+    type: object
+  clusterScanRule:
+    properties:
+      failuresOnly:
+        default: false
+        type: boolean
+      scanRunType:
+        default: scheduled
+        options:
+        - manual
+        - scheduled
+        type: enum
+    required:
+    - scanRunType
+    type: object
+  clusterScanStatus:
+    properties:
+      cisScanStatus:
+        type: cisScanStatus
+      conditions:
+        type: array[clusterScanCondition]
+    type: object
+  clusterSpec:
+    properties:
+      agentImageOverride:
+        type: string
+      amazonElasticContainerServiceConfig:
+        type: map[json]
+      answers:
+        type: answer
+      azureKubernetesServiceConfig:
+        type: map[json]
+      clusterTemplateId:
+        type: reference[clusterTemplate]
+      clusterTemplateRevisionId:
+        type: reference[clusterTemplateRevision]
+      defaultClusterRoleForProjectMembers:
+        type: reference[roleTemplate]
+      defaultPodSecurityPolicyTemplateId:
+        type: reference[podSecurityPolicyTemplate]
+      description:
+        type: string
+      desiredAgentImage:
+        type: string
+      desiredAuthImage:
+        type: string
+      displayName:
+        type: string
+      dockerRootDir:
+        default: /var/lib/docker
+        type: string
+      enableClusterAlerting:
+        default: false
+        type: boolean
+      enableClusterMonitoring:
+        default: false
+        type: boolean
+      enableNetworkPolicy:
+        default: false
+        type: boolean
+      genericEngineConfig:
+        type: map[json]
+      googleKubernetesEngineConfig:
+        type: map[json]
+      importedConfig:
+        type: importedConfig
+      internal:
+        default: false
+        type: boolean
+      k3sConfig:
+        type: k3sConfig
+      localClusterAuthEndpoint:
+        type: localClusterAuthEndpoint
+      questions:
+        type: array[question]
+      rancherKubernetesEngineConfig:
+        type: rancherKubernetesEngineConfig
+      scheduledClusterScan:
+        type: scheduledClusterScan
+      windowsPreferedCluster:
+        default: false
+        type: boolean
+    required:
+    - displayName
+    type: object
+  clusterSpecBase:
+    properties:
+      agentImageOverride:
+        type: string
+      defaultClusterRoleForProjectMembers:
+        type: reference[roleTemplate]
+      defaultPodSecurityPolicyTemplateId:
+        type: reference[podSecurityPolicyTemplate]
+      desiredAgentImage:
+        type: string
+      desiredAuthImage:
+        type: string
+      dockerRootDir:
+        default: /var/lib/docker
+        type: string
+      enableClusterAlerting:
+        default: false
+        type: boolean
+      enableClusterMonitoring:
+        default: false
+        type: boolean
+      enableNetworkPolicy:
+        default: false
+        type: boolean
+      localClusterAuthEndpoint:
+        type: localClusterAuthEndpoint
+      rancherKubernetesEngineConfig:
+        type: rancherKubernetesEngineConfig
+      scheduledClusterScan:
+        type: scheduledClusterScan
+      windowsPreferedCluster:
+        default: false
+        type: boolean
+    type: object
+  clusterTemplate:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      defaultRevisionId:
+        type: reference[clusterTemplateRevision]
+      description:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      members:
+        type: array[member]
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+    required:
+    - name
+    type: object
+  clusterTemplateQuestionsOutput:
+    properties:
+      questions:
+        type: array[question]
+    type: object
+  clusterTemplateRevision:
+    properties:
+      annotations:
+        type: map[string]
+      clusterConfig:
+        type: clusterSpecBase
+      clusterTemplateId:
+        type: reference[clusterTemplate]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: true
+        type: boolean
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      questions:
+        type: array[question]
+      removed:
+        type: date
+      uuid:
+        type: string
+    required:
+    - clusterTemplateId
+    - name
+    - clusterConfig
+    type: object
+  clusterTestInput:
+    properties:
+      clusterId:
+        type: reference[cluster]
+      customTargetConfig:
+        type: customTargetConfig
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      kafkaConfig:
+        type: kafkaConfig
+      outputTags:
+        type: map[string]
+      splunkConfig:
+        type: splunkConfig
+      syslogConfig:
+        type: syslogConfig
+    required:
+    - clusterId
+    type: object
+  componentCondition:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  composeCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  composeConfig:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherCompose:
+        type: string
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: composeStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    type: object
+  composeStatus:
+    properties:
+      conditions:
+        type: array[composeCondition]
+    type: object
+  condition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  containerResourceLimit:
+    properties:
+      limitsCpu:
+        type: string
+      limitsMemory:
+        type: string
+      requestsCpu:
+        type: string
+      requestsMemory:
+        type: string
+    type: object
+  cpuInfo:
+    properties:
+      count:
+        default: 0
+        type: int
+    type: object
+  customConfig:
+    properties:
+      address:
+        type: string
+      dockerSocket:
+        type: string
+      internalAddress:
+        type: string
+      label:
+        type: map[string]
+      sshCert:
+        type: string
+      sshKey:
+        type: password
+      taints:
+        type: array[string]
+      user:
+        type: string
+    type: object
+  customTargetConfig:
+    properties:
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      content:
+        type: string
+    type: object
+  daemonSetUpdateStrategy:
+    properties:
+      rollingUpdate:
+        type: rollingUpdateDaemonSet
+      type:
+        type: string
+    type: object
+  deploymentStrategy:
+    properties:
+      rollingUpdate:
+        type: rollingUpdateDeployment
+      type:
+        type: string
+    type: object
+  digitaloceanconfig:
+    properties:
+      accessToken:
+        default: ''
+        description: Digital Ocean access token
+        type: password
+      backups:
+        default: false
+        description: enable backups for droplet
+        type: boolean
+      image:
+        default: ubuntu-16-04-x64
+        description: Digital Ocean Image
+        type: string
+      ipv6:
+        default: false
+        description: enable ipv6 for droplet
+        type: boolean
+      monitoring:
+        default: false
+        description: enable monitoring for droplet
+        type: boolean
+      privateNetworking:
+        default: false
+        description: enable private networking for droplet
+        type: boolean
+      region:
+        default: nyc3
+        description: Digital Ocean region
+        type: string
+      size:
+        default: s-1vcpu-1gb
+        description: Digital Ocean size
+        type: string
+      sshKeyContents:
+        default: ''
+        description: File contents for sshKeyContents
+        type: password
+      sshKeyFingerprint:
+        default: ''
+        description: SSH key fingerprint
+        type: string
+      sshPort:
+        default: '22'
+        description: SSH port
+        type: string
+      sshUser:
+        default: root
+        description: SSH username
+        type: string
+      tags:
+        default: ''
+        description: comma-separated list of tags to apply to the Droplet
+        type: string
+      userdata:
+        default: ''
+        description: File contents for userdata
+        type: string
+    type: object
+  digitaloceancredentialconfig:
+    properties:
+      accessToken:
+        default: ''
+        description: Digital Ocean access token
+        type: password
+    required:
+    - accessToken
+    type: object
+  diskVsphereOpts:
+    properties:
+      scsicontrollertype:
+        type: string
+    type: object
+  dnsConfig:
+    properties:
+      linearAutoscalerParams:
+        type: linearAutoscalerParams
+      nodeSelector:
+        type: map[string]
+      nodelocal:
+        type: nodelocal
+      provider:
+        type: string
+      reversecidrs:
+        type: array[string]
+      stubdomains:
+        type: map[array[string]]
+      updateStrategy:
+        type: deploymentStrategy
+      upstreamnameservers:
+        type: array[string]
+    type: object
+  dockerInfo:
+    properties:
+      architecture:
+        type: string
+      cgroupDriver:
+        type: string
+      debug:
+        default: false
+        type: boolean
+      dockerRootDir:
+        type: string
+      driver:
+        type: string
+      experimentalBuild:
+        default: false
+        type: boolean
+      httpProxy:
+        type: string
+      httpsProxy:
+        type: string
+      id:
+        type: string
+      indexServerAddress:
+        type: string
+      kernelVersion:
+        type: string
+      labels:
+        type: array[string]
+      loggingDriver:
+        type: string
+      name:
+        type: string
+      noProxy:
+        type: string
+      operatingSystem:
+        type: string
+      osType:
+        type: string
+      serverVersion:
+        type: string
+    type: object
+  dynamicSchema:
+    properties:
+      annotations:
+        type: map[string]
+      collectionActions:
+        type: map[action]
+      collectionFields:
+        type: map[field]
+      collectionFilters:
+        type: map[filter]
+      collectionMethods:
+        type: array[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      dynamicSchemaVersion:
+        type: string
+      embed:
+        default: false
+        type: boolean
+      embedType:
+        type: string
+      includeableLinks:
+        type: array[string]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      pluralName:
+        type: string
+      removed:
+        type: date
+      resourceActions:
+        type: map[action]
+      resourceFields:
+        type: map[field]
+      resourceMethods:
+        type: array[string]
+      schemaName:
+        type: string
+      state:
+        type: string
+      status:
+        type: dynamicSchemaStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    type: object
+  dynamicSchemaStatus:
+    properties:
+      fake:
+        type: string
+    type: object
+  elasticsearchConfig:
+    properties:
+      authPassword:
+        type: password
+      authUsername:
+        type: string
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      clientKeyPass:
+        type: string
+      dateFormat:
+        default: YYYY-MM-DD
+        options:
+        - YYYY-MM-DD
+        - YYYY-MM
+        - YYYY
+        type: enum
+      endpoint:
+        type: string
+      indexPrefix:
+        type: string
+      sslVerify:
+        default: false
+        type: boolean
+      sslVersion:
+        default: TLSv1_2
+        options:
+        - SSLv23
+        - TLSv1
+        - TLSv1_1
+        - TLSv1_2
+        type: enum
+    required:
+    - endpoint
+    - dateFormat
+    - indexPrefix
+    type: object
+  etcdBackup:
+    properties:
+      annotations:
+        type: map[string]
+      backupConfig:
+        type: backupConfig
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      filename:
+        type: string
+      labels:
+        type: map[string]
+      manual:
+        default: false
+        type: boolean
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: etcdBackupStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - clusterId
+    type: object
+  etcdBackupCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  etcdBackupStatus:
+    properties:
+      clusterObject:
+        type: password
+      conditions:
+        type: array[etcdBackupCondition]
+      kubernetesVersion:
+        type: string
+    type: object
+  etcdService:
+    properties:
+      backupConfig:
+        type: backupConfig
+      caCert:
+        type: string
+      cert:
+        type: string
+      creation:
+        default: 12h
+        type: string
+      externalUrls:
+        type: array[string]
+      extraArgs:
+        default:
+          election-timeout: '5000'
+          heartbeat-interval: '500'
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      gid:
+        default: 0
+        type: int
+      image:
+        type: string
+      key:
+        type: string
+      path:
+        type: string
+      retention:
+        default: 72h
+        type: string
+      snapshot:
+        default: false
+        type: boolean
+      uid:
+        default: 0
+        type: int
+    type: object
+  eventRateLimit:
+    properties:
+      configuration:
+        type: map[json]
+      enabled:
+        default: false
+        type: boolean
+    type: object
+  eventRule:
+    properties:
+      eventType:
+        default: Warning
+        options:
+        - Normal
+        - Warning
+        type: enum
+      resourceKind:
+        options:
+        - Pod
+        - Node
+        - Deployment
+        - StatefulSet
+        - DaemonSet
+        type: enum
+    required:
+    - eventType
+    - resourceKind
+    type: object
+  exportOutput:
+    properties:
+      yamlOutput:
+        type: string
+    type: object
+  feature:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: featureStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      value:
+        type: boolean
+    required:
+    - name
+    - value
+    type: object
+  featureStatus:
+    properties:
+      default:
+        default: false
+        type: boolean
+      description:
+        type: string
+      dynamic:
+        default: false
+        type: boolean
+    type: object
+  field:
+    properties:
+      create:
+        default: false
+        type: boolean
+      default:
+        type: values
+      description:
+        type: string
+      dynamicField:
+        default: false
+        type: boolean
+      invalidChars:
+        type: string
+      max:
+        default: 0
+        type: int
+      maxLength:
+        default: 0
+        type: int
+      min:
+        default: 0
+        type: int
+      minLength:
+        default: 0
+        type: int
+      nullable:
+        default: false
+        type: boolean
+      options:
+        type: array[string]
+      required:
+        default: false
+        type: boolean
+      type:
+        type: string
+      unique:
+        default: false
+        type: boolean
+      update:
+        default: false
+        type: boolean
+      validChars:
+        type: string
+    type: object
+  file:
+    properties:
+      contents:
+        type: string
+      name:
+        type: string
+    type: object
+  filter:
+    properties:
+      modifiers:
+        type: array[string]
+    type: object
+  flannelNetworkProvider:
+    properties:
+      iface:
+        type: string
+    type: object
+  fluentForwarderConfig:
+    properties:
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      clientKeyPass:
+        type: string
+      compress:
+        default: true
+        type: boolean
+      enableTls:
+        default: false
+        type: boolean
+      fluentServers:
+        type: array[fluentServer]
+      sslVerify:
+        default: false
+        type: boolean
+    required:
+    - fluentServers
+    type: object
+  fluentServer:
+    properties:
+      endpoint:
+        type: string
+      hostname:
+        type: string
+      password:
+        type: password
+      sharedKey:
+        type: password
+      standby:
+        default: false
+        type: boolean
+      username:
+        type: string
+      weight:
+        default: 100
+        type: int
+    required:
+    - endpoint
+    type: object
+  freeIpaConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      certificate:
+        type: string
+      connectionTimeout:
+        default: 5000
+        type: int
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      groupDNAttribute:
+        default: entrydn
+        type: string
+      groupMemberMappingAttribute:
+        default: member
+        type: string
+      groupMemberUserAttribute:
+        default: entrydn
+        type: string
+      groupNameAttribute:
+        default: cn
+        type: string
+      groupObjectClass:
+        default: groupofnames
+        type: string
+      groupSearchAttribute:
+        default: cn
+        type: string
+      groupSearchBase:
+        type: string
+      groupSearchFilter:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      port:
+        default: 389
+        type: int
+      removed:
+        type: date
+      servers:
+        type: array[string]
+      serviceAccountDistinguishedName:
+        type: string
+      serviceAccountPassword:
+        type: password
+      tls:
+        default: false
+        type: boolean
+      type:
+        type: string
+      userDisabledBitMask:
+        default: 0
+        type: int
+      userEnabledAttribute:
+        type: string
+      userLoginAttribute:
+        default: uid
+        type: string
+      userMemberAttribute:
+        default: memberOf
+        type: string
+      userNameAttribute:
+        default: givenName
+        type: string
+      userObjectClass:
+        default: inetorgperson
+        type: string
+      userSearchAttribute:
+        default: uid|sn|givenName
+        type: string
+      userSearchBase:
+        type: string
+      userSearchFilter:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupObjectClass
+    - userSearchBase
+    - servers
+    - userNameAttribute
+    - port
+    - groupSearchAttribute
+    - accessMode
+    - serviceAccountDistinguishedName
+    - serviceAccountPassword
+    - groupMemberMappingAttribute
+    - userMemberAttribute
+    - groupNameAttribute
+    - userLoginAttribute
+    - tls
+    - userSearchAttribute
+    - connectionTimeout
+    - userObjectClass
+    type: object
+  freeIpaTestAndApplyInput:
+    properties:
+      ldapConfig:
+        type: ldapConfig
+      password:
+        type: password
+      username:
+        type: string
+    required:
+    - password
+    type: object
+  fsGroupStrategyOptions:
+    properties:
+      ranges:
+        type: array[idRange]
+      rule:
+        type: string
+    type: object
+  generateKubeConfigOutput:
+    properties:
+      config:
+        type: string
+    type: object
+  githubConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      additionalClientIds:
+        type: map[string]
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      clientId:
+        type: string
+      clientSecret:
+        type: password
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      hostname:
+        default: github.com
+        type: string
+      hostnameToClientId:
+        type: map[string]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      tls:
+        default: true
+        type: boolean
+      type:
+        type: string
+      uuid:
+        type: string
+    required:
+    - clientSecret
+    - accessMode
+    - clientId
+    type: object
+  githubConfigApplyInput:
+    properties:
+      code:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      githubConfig:
+        type: githubConfig
+    type: object
+  githubConfigTestOutput:
+    properties:
+      redirectUrl:
+        type: string
+    type: object
+  globalAwsOpts:
+    properties:
+      disable-security-group-ingress:
+        default: false
+        type: boolean
+      disable-strict-zone-check:
+        default: false
+        type: boolean
+      elb-security-group:
+        type: string
+      kubernetes-cluster-id:
+        type: string
+      kubernetes-cluster-tag:
+        type: string
+      role-arn:
+        type: string
+      routetable-id:
+        type: string
+      subnet-id:
+        type: string
+      vpc:
+        type: string
+      zone:
+        type: string
+    type: object
+  globalOpenstackOpts:
+    properties:
+      auth-url:
+        type: string
+      ca-file:
+        type: string
+      domain-id:
+        type: string
+      domain-name:
+        type: string
+      password:
+        type: password
+      region:
+        type: string
+      tenant-id:
+        type: string
+      tenant-name:
+        type: string
+      trust-id:
+        type: string
+      user-id:
+        type: string
+      username:
+        type: string
+    type: object
+  globalRole:
+    properties:
+      annotations:
+        type: map[string]
+      builtin:
+        default: false
+        type: boolean
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      newUserDefault:
+        default: false
+        type: boolean
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      rules:
+        type: array[policyRule]
+      uuid:
+        type: string
+    required:
+    - newUserDefault
+    - name
+    type: object
+  globalRoleBinding:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      globalRoleId:
+        type: reference[globalRole]
+      groupPrincipalId:
+        type: reference[principal]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      userId:
+        type: reference[user]
+      uuid:
+        type: string
+    required:
+    - globalRoleId
+    type: object
+  globalVsphereOpts:
+    properties:
+      datacenter:
+        type: string
+      datacenters:
+        type: string
+      datastore:
+        type: string
+      insecure-flag:
+        default: false
+        type: boolean
+      password:
+        type: password
+      port:
+        type: string
+      server:
+        type: string
+      soap-roundtrip-count:
+        default: 0
+        type: int
+      user:
+        type: string
+      vm-name:
+        type: string
+      vm-uuid:
+        type: string
+      working-dir:
+        type: string
+    type: object
+  googleKubernetesEngineConfig:
+    properties:
+      clusterIpv4Cidr:
+        default: ''
+        description: The IP address range of the container pods
+        type: string
+      credential:
+        default: ''
+        description: The contents of the GC credential file
+        type: password
+      description:
+        default: ''
+        description: An optional description of this cluster
+        type: string
+      diskSizeGb:
+        default: 100
+        description: Size of the disk attached to each node
+        type: int
+      diskType:
+        default: ''
+        description: Type of the disk attached to each node
+        type: string
+      displayName:
+        default: ''
+        description: the name of the cluster that should be displayed to the user
+        type: string
+      driverName:
+        default: googlekubernetesengine
+        type: string
+      enableAlphaFeature:
+        default: false
+        description: To enable kubernetes alpha feature
+        type: boolean
+      enableAutoRepair:
+        default: false
+        description: Specifies whether the node auto-repair is enabled for the node
+          pool
+        type: boolean
+      enableAutoUpgrade:
+        default: false
+        description: Specifies whether node auto-upgrade is enabled for the node pool
+        type: boolean
+      enableHorizontalPodAutoscaling:
+        default: true
+        description: Enable horizontal pod autoscaling for the cluster
+        type: boolean
+      enableHttpLoadBalancing:
+        default: true
+        description: Enable http load balancing for the cluster
+        type: boolean
+      enableKubernetesDashboard:
+        default: false
+        description: Whether to enable the kubernetes dashboard
+        type: boolean
+      enableLegacyAbac:
+        default: false
+        description: Whether to enable legacy abac on the cluster
+        type: boolean
+      enableMasterAuthorizedNetwork:
+        default: false
+        description: Whether or not master authorized network is enabled
+        type: boolean
+      enableNetworkPolicyConfig:
+        default: true
+        description: Enable network policy config for the cluster
+        type: boolean
+      enableNodepoolAutoscaling:
+        default: false
+        description: Enable nodepool autoscaling
+        type: boolean
+      enablePrivateEndpoint:
+        default: false
+        description: Whether the master's internal IP address is used as the cluster
+          endpoint
+        type: boolean
+      enablePrivateNodes:
+        default: false
+        description: Whether nodes have internal IP address only
+        type: boolean
+      enableStackdriverLogging:
+        default: true
+        description: Disable stackdriver logging
+        type: boolean
+      enableStackdriverMonitoring:
+        default: true
+        description: Disable stackdriver monitoring
+        type: boolean
+      imageType:
+        default: ''
+        description: The image to use for the worker nodes
+        type: string
+      ipPolicyClusterIpv4CidrBlock:
+        default: ''
+        description: The IP address range for the cluster pod IPs
+        type: string
+      ipPolicyClusterSecondaryRangeName:
+        default: ''
+        description: The name of the secondary range to be used for the cluster CIDR
+          block
+        type: string
+      ipPolicyCreateSubnetwork:
+        default: false
+        description: Whether a new subnetwork will be created automatically for the
+          cluster
+        type: boolean
+      ipPolicyNodeIpv4CidrBlock:
+        default: ''
+        description: The IP address range of the instance IPs in this cluster
+        type: string
+      ipPolicyServicesIpv4CidrBlock:
+        default: ''
+        description: The IP address range of the services IPs in this cluster
+        type: string
+      ipPolicyServicesSecondaryRangeName:
+        default: ''
+        description: The name of the secondary range to be used for the services CIDR
+          block
+        type: string
+      ipPolicySubnetworkName:
+        default: ''
+        description: A custom subnetwork name to be used if createSubnetwork is true
+        type: string
+      issueClientCertificate:
+        default: false
+        description: Issue a client certificate
+        type: boolean
+      kubernetesDashboard:
+        default: false
+        description: Enable the kubernetes dashboard
+        type: boolean
+      labels:
+        description: The map of Kubernetes labels (key/value pairs) to be applied
+          to each node
+        type: array[string]
+      localSsdCount:
+        default: 0
+        description: he number of local SSD disks to be attached to the node
+        type: int
+      locations:
+        description: Locations to use for the cluster
+        type: array[string]
+      machineType:
+        default: ''
+        description: The machine type to use for the worker nodes
+        type: string
+      maintenanceWindow:
+        default: ''
+        description: When to performance updates on the nodes, in 24-hour time (e.g.
+          "19:00")
+        type: string
+      masterAuthorizedNetworkCidrBlocks:
+        description: Define up to 10 external networks that could access Kubernetes
+          master through HTTPS
+        type: array[string]
+      masterIpv4CidrBlock:
+        default: ''
+        description: The IP range in CIDR notation to use for the hosted master network
+        type: string
+      masterVersion:
+        default: ''
+        description: The kubernetes master version
+        type: string
+      maxNodeCount:
+        default: 0
+        description: Maximum number of nodes in the NodePool. Must be >= minNodeCount.
+          There has to enough quota to scale up the cluster
+        type: int
+      minNodeCount:
+        default: 0
+        description: Minimmum number of nodes in the NodePool. Must be >= 1 and <=
+          maxNodeCount
+        type: int
+      name:
+        default: ''
+        description: the internal name of the cluster in Rancher
+        type: string
+      network:
+        default: ''
+        description: The network to use for the cluster
+        type: string
+      nodeCount:
+        default: 3
+        description: The number of nodes to create in this cluster
+        type: int
+      nodePool:
+        default: ''
+        description: The ID of the cluster node pool
+        type: string
+      nodeVersion:
+        default: ''
+        description: The version of kubernetes to use on the nodes
+        type: string
+      oauthScopes:
+        description: The set of Google API scopes to be made available on all of the
+          node VMs under the default service account
+        type: array[string]
+      preemptible:
+        default: false
+        description: Whether the nodes are created as preemptible VM instances
+        type: boolean
+      projectId:
+        default: ''
+        description: the ID of your project to use when creating a cluster
+        type: string
+      region:
+        default: ''
+        description: The region to launch the cluster
+        type: string
+      resourceLabels:
+        description: The map of Kubernetes labels (key/value pairs) to be applied
+          to each cluster
+        type: array[string]
+      serviceAccount:
+        default: ''
+        description: The Google Cloud Platform Service Account to be used by the node
+          VMs
+        type: string
+      subNetwork:
+        default: ''
+        description: The sub-network to use for the cluster
+        type: string
+      taints:
+        description: List of kubernetes taints to be applied to each node
+        type: array[string]
+      useIpAliases:
+        default: false
+        description: Whether alias IPs will be used for pod IPs in the cluster
+        type: boolean
+      zone:
+        default: ''
+        description: The zone to launch the cluster
+        type: string
+    type: object
+  googleOauthConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      adminEmail:
+        type: string
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      hostname:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      nestedGroupMembershipEnabled:
+        default: false
+        type: boolean
+      oauthCredential:
+        type: password
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      serviceAccountCredential:
+        type: password
+      type:
+        type: string
+      userInfoEndpoint:
+        default: https://openidconnect.googleapis.com/v1/userinfo
+        type: string
+      uuid:
+        type: string
+    required:
+    - accessMode
+    - hostname
+    - adminEmail
+    - oauthCredential
+    - serviceAccountCredential
+    - userInfoEndpoint
+    type: object
+  googleOauthConfigApplyInput:
+    properties:
+      code:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      googleOauthConfig:
+        type: googleOauthConfig
+    type: object
+  googleOauthConfigTestOutput:
+    properties:
+      redirectUrl:
+        type: string
+    type: object
+  group:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  groupMember:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      groupId:
+        type: reference[group]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      principalId:
+        type: reference[principal]
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  healthCheck:
+    properties:
+      url:
+        type: string
+    type: object
+  hostPortRange:
+    properties:
+      max:
+        default: 0
+        type: int
+      min:
+        default: 0
+        type: int
+    type: object
+  idRange:
+    properties:
+      max:
+        default: 0
+        type: int
+      min:
+        default: 0
+        type: int
+    type: object
+  importClusterYamlInput:
+    properties:
+      defaultNamespace:
+        type: string
+      namespace:
+        type: string
+      projectId:
+        type: reference[project]
+      yaml:
+        type: string
+    type: object
+  importYamlOutput:
+    properties:
+      message:
+        type: string
+    type: object
+  importedConfig:
+    properties:
+      kubeConfig:
+        type: password
+    type: object
+  info:
+    properties:
+      buildDate:
+        type: string
+      compiler:
+        type: string
+      gitCommit:
+        type: string
+      gitTreeState:
+        type: string
+      gitVersion:
+        type: string
+      goVersion:
+        type: string
+      major:
+        type: string
+      minor:
+        type: string
+      platform:
+        type: string
+    type: object
+  ingressCapabilities:
+    properties:
+      customDefaultBackend:
+        type: boolean
+      ingressProvider:
+        type: string
+    type: object
+  ingressConfig:
+    properties:
+      dnsPolicy:
+        type: string
+      extraArgs:
+        type: map[string]
+      extraEnvs:
+        type: array[json]
+      extraVolumeMounts:
+        type: array[json]
+      extraVolumes:
+        type: array[json]
+      nodeSelector:
+        type: map[string]
+      options:
+        type: map[string]
+      provider:
+        default: nginx
+        type: string
+      updateStrategy:
+        type: daemonSetUpdateStrategy
+    type: object
+  k3sConfig:
+    properties:
+      k3supgradeStrategy:
+        type: k3sUpgradeStrategy
+      kubernetesVersion:
+        type: string
+    type: object
+  k3sUpgradeStrategy:
+    properties:
+      drainServerNodes:
+        default: false
+        type: boolean
+      drainWorkerNodes:
+        default: false
+        type: boolean
+      serverConcurrency:
+        default: 0
+        min: 1
+        type: int
+      workerConcurrency:
+        default: 0
+        min: 1
+        type: int
+    type: object
+  kafkaConfig:
+    properties:
+      brokerEndpoints:
+        type: array[string]
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      saslPassword:
+        type: password
+      saslScramMechanism:
+        options:
+        - sha256
+        - sha512
+        type: enum
+      saslType:
+        options:
+        - plain
+        - scram
+        type: enum
+      saslUsername:
+        type: string
+      topic:
+        type: string
+      zookeeperEndpoint:
+        type: string
+    required:
+    - topic
+    type: object
+  keyCloakConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      displayNameField:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupsField:
+        type: string
+      idpMetadataContent:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherApiHost:
+        type: string
+      removed:
+        type: date
+      spCert:
+        type: string
+      spKey:
+        type: password
+      type:
+        type: string
+      uidField:
+        type: string
+      userNameField:
+        type: string
+      uuid:
+        type: string
+    required:
+    - userNameField
+    - idpMetadataContent
+    - displayNameField
+    - accessMode
+    - uidField
+    - rancherApiHost
+    - spCert
+    - groupsField
+    - spKey
+    type: object
+  kontainerDriver:
+    properties:
+      active:
+        default: false
+        type: boolean
+      actualUrl:
+        type: string
+      annotations:
+        type: map[string]
+      builtIn:
+        default: false
+        type: boolean
+      checksum:
+        type: string
+      conditions:
+        type: array[condition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      executablePath:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uiUrl:
+        type: string
+      url:
+        type: string
+      uuid:
+        type: string
+      whitelistDomains:
+        type: array[string]
+    required:
+    - url
+    type: object
+  kubeAPIService:
+    properties:
+      admissionConfiguration:
+        type: map[json]
+      alwaysPullImages:
+        default: false
+        type: boolean
+      auditLog:
+        type: auditLog
+      eventRateLimit:
+        type: eventRateLimit
+      extraArgs:
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      image:
+        type: string
+      podSecurityPolicy:
+        default: false
+        type: boolean
+      secretsEncryptionConfig:
+        type: secretsEncryptionConfig
+      serviceClusterIpRange:
+        type: string
+      serviceNodePortRange:
+        default: 30000-32767
+        type: string
+    type: object
+  kubeControllerService:
+    properties:
+      clusterCidr:
+        type: string
+      extraArgs:
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      image:
+        type: string
+      serviceClusterIpRange:
+        type: string
+    type: object
+  kubeletService:
+    properties:
+      clusterDnsServer:
+        type: string
+      clusterDomain:
+        type: string
+      extraArgs:
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      failSwapOn:
+        default: false
+        type: boolean
+      generateServingCertificate:
+        default: false
+        type: boolean
+      image:
+        type: string
+      infraContainerImage:
+        type: string
+    type: object
+  kubeproxyService:
+    properties:
+      extraArgs:
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      image:
+        type: string
+    type: object
+  kubernetesInfo:
+    properties:
+      kubeProxyVersion:
+        type: string
+      kubeletVersion:
+        type: string
+    type: object
+  kubernetesServicesOptions:
+    properties:
+      etcd:
+        type: map[string]
+      kubeController:
+        type: map[string]
+      kubeapi:
+        type: map[string]
+      kubelet:
+        type: map[string]
+      kubeproxy:
+        type: map[string]
+      scheduler:
+        type: map[string]
+    type: object
+  ldapConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      certificate:
+        type: string
+      connectionTimeout:
+        default: 5000
+        type: int
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      groupDNAttribute:
+        default: entryDN
+        type: string
+      groupMemberMappingAttribute:
+        default: member
+        type: string
+      groupMemberUserAttribute:
+        default: entryDN
+        type: string
+      groupNameAttribute:
+        default: cn
+        type: string
+      groupObjectClass:
+        default: groupOfNames
+        type: string
+      groupSearchAttribute:
+        default: cn
+        type: string
+      groupSearchBase:
+        type: string
+      groupSearchFilter:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      nestedGroupMembershipEnabled:
+        default: false
+        type: boolean
+      ownerReferences:
+        type: array[ownerReference]
+      port:
+        default: 389
+        type: int
+      removed:
+        type: date
+      servers:
+        type: array[string]
+      serviceAccountDistinguishedName:
+        type: string
+      serviceAccountPassword:
+        type: password
+      tls:
+        default: false
+        type: boolean
+      type:
+        type: string
+      userDisabledBitMask:
+        default: 0
+        type: int
+      userEnabledAttribute:
+        type: string
+      userLoginAttribute:
+        default: uid
+        type: string
+      userMemberAttribute:
+        default: memberOf
+        type: string
+      userNameAttribute:
+        default: cn
+        type: string
+      userObjectClass:
+        default: inetOrgPerson
+        type: string
+      userSearchAttribute:
+        default: uid|sn|givenName
+        type: string
+      userSearchBase:
+        type: string
+      userSearchFilter:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupObjectClass
+    - userSearchBase
+    - servers
+    - userNameAttribute
+    - serviceAccountPassword
+    - port
+    - groupSearchAttribute
+    - accessMode
+    - serviceAccountDistinguishedName
+    - groupMemberMappingAttribute
+    - userMemberAttribute
+    - groupNameAttribute
+    - userLoginAttribute
+    - tls
+    - userSearchAttribute
+    - connectionTimeout
+    - userObjectClass
+    type: object
+  ldapFields:
+    properties:
+      certificate:
+        type: string
+      connectionTimeout:
+        default: 5000
+        type: int
+      groupDNAttribute:
+        default: entryDN
+        type: string
+      groupMemberMappingAttribute:
+        default: member
+        type: string
+      groupMemberUserAttribute:
+        default: entryDN
+        type: string
+      groupNameAttribute:
+        default: cn
+        type: string
+      groupObjectClass:
+        default: groupOfNames
+        type: string
+      groupSearchAttribute:
+        default: cn
+        type: string
+      groupSearchBase:
+        type: string
+      groupSearchFilter:
+        type: string
+      nestedGroupMembershipEnabled:
+        default: false
+        type: boolean
+      port:
+        default: 389
+        type: int
+      servers:
+        type: array[string]
+      serviceAccountDistinguishedName:
+        type: string
+      serviceAccountPassword:
+        type: password
+      tls:
+        default: false
+        type: boolean
+      userDisabledBitMask:
+        default: 0
+        type: int
+      userEnabledAttribute:
+        type: string
+      userLoginAttribute:
+        default: uid
+        type: string
+      userMemberAttribute:
+        default: memberOf
+        type: string
+      userNameAttribute:
+        default: cn
+        type: string
+      userObjectClass:
+        default: inetOrgPerson
+        type: string
+      userSearchAttribute:
+        default: uid|sn|givenName
+        type: string
+      userSearchBase:
+        type: string
+      userSearchFilter:
+        type: string
+    required:
+    - groupObjectClass
+    - userSearchBase
+    - userObjectClass
+    - userNameAttribute
+    - port
+    - groupSearchAttribute
+    - serviceAccountDistinguishedName
+    - serviceAccountPassword
+    - groupMemberMappingAttribute
+    - userMemberAttribute
+    - groupNameAttribute
+    - userLoginAttribute
+    - servers
+    - tls
+    - userSearchAttribute
+    - connectionTimeout
+    type: object
+  linearAutoscalerParams:
+    properties:
+      coresPerReplica:
+        default: 128
+        type: float
+      max:
+        default: 0
+        type: int
+      min:
+        default: 1
+        type: int
+      nodesPerReplica:
+        default: 4
+        type: float
+      preventSinglePointFailure:
+        default: true
+        type: boolean
+    type: object
+  linodeconfig:
+    properties:
+      authorizedUsers:
+        default: ''
+        description: Linode user accounts (seperated by commas) whose Linode SSH keys
+          will be permitted root access to the created node
+        type: string
+      createPrivateIp:
+        default: false
+        description: Create private IP for the instance
+        type: boolean
+      dockerPort:
+        default: '2376'
+        description: Docker Port
+        type: string
+      image:
+        default: linode/ubuntu18.04
+        description: Specifies the Linode Instance image which determines the OS distribution
+          and base files
+        type: string
+      instanceType:
+        default: g6-standard-4
+        description: Specifies the Linode Instance type which determines CPU, memory,
+          disk size, etc.
+        type: string
+      label:
+        default: ''
+        description: Linode Instance Label
+        type: string
+      region:
+        default: us-east
+        description: Specifies the region (location) of the Linode instance
+        type: string
+      rootPass:
+        default: ''
+        description: Root Password
+        type: password
+      sshPort:
+        default: '22'
+        description: Linode Instance SSH Port
+        type: string
+      sshUser:
+        default: ''
+        description: Specifies the user as which docker-machine should log in to the
+          Linode instance to install Docker.
+        type: string
+      stackscript:
+        default: ''
+        description: Specifies the Linode StackScript to use to create the instance
+        type: string
+      stackscriptData:
+        default: ''
+        description: A JSON string specifying data for the selected StackScript
+        type: string
+      swapSize:
+        default: '512'
+        description: Linode Instance Swap Size (MB)
+        type: string
+      tags:
+        default: ''
+        description: A comma separated list of tags to apply to the the Linode resource
+        type: string
+      token:
+        default: ''
+        description: Linode API Token
+        type: password
+      uaPrefix:
+        default: ''
+        description: Prefix the User-Agent in Linode API calls with some 'product/version'
+        type: string
+    type: object
+  linodecredentialconfig:
+    properties:
+      token:
+        default: ''
+        description: Linode API Token
+        type: password
+    required:
+    - token
+    type: object
+  loadBalancerCapabilities:
+    properties:
+      enabled:
+        type: boolean
+      healthCheckSupported:
+        default: false
+        type: boolean
+      protocolsSupported:
+        type: array[string]
+      provider:
+        type: string
+    type: object
+  loadBalancerOpenstackOpts:
+    properties:
+      create-monitor:
+        default: false
+        type: boolean
+      floating-network-id:
+        type: string
+      lb-method:
+        type: string
+      lb-provider:
+        type: string
+      lb-version:
+        type: string
+      manage-security-groups:
+        default: false
+        type: boolean
+      monitor-delay:
+        type: string
+      monitor-max-retries:
+        default: 0
+        type: int
+      monitor-timeout:
+        type: string
+      subnet-id:
+        type: string
+      use-octavia:
+        default: false
+        type: boolean
+    type: object
+  localClusterAuthEndpoint:
+    properties:
+      caCerts:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      fqdn:
+        type: string
+    type: object
+  localConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      type:
+        type: string
+      uuid:
+        type: string
+    required:
+    - accessMode
+    type: object
+  loggingCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  managementSecret:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      data:
+        type: map[base64]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      stringData:
+        type: map[string]
+      type:
+        type: string
+      uuid:
+        type: string
+    type: object
+  member:
+    properties:
+      accessType:
+        options:
+        - owner
+        - member
+        - read-only
+        type: enum
+      groupPrincipalId:
+        type: reference[principal]
+      userPrincipalId:
+        type: reference[principal]
+    type: object
+  memoryInfo:
+    properties:
+      memTotalKiB:
+        default: 0
+        type: int
+    type: object
+  metadataOpenstackOpts:
+    properties:
+      request-timeout:
+        default: 0
+        type: int
+      search-order:
+        type: string
+    type: object
+  metricNamesOutput:
+    properties:
+      names:
+        type: array[string]
+      type:
+        type: string
+    type: object
+  metricRule:
+    properties:
+      comparison:
+        default: equal
+        options:
+        - equal
+        - not-equal
+        - greater-than
+        - less-than
+        - greater-or-equal
+        - less-or-equal
+        - has-value
+        type: enum
+      description:
+        type: string
+      duration:
+        type: string
+      expression:
+        type: string
+      thresholdValue:
+        default: 0
+        type: float
+    required:
+    - duration
+    - expression
+    type: object
+  monitorMetric:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      expression:
+        type: string
+      labels:
+        type: map[string]
+      legendFormat:
+        type: string
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+    required:
+    - namespaceId
+    - expression
+    type: object
+  monitoringCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  monitoringConfig:
+    properties:
+      nodeSelector:
+        type: map[string]
+      options:
+        type: map[string]
+      provider:
+        default: metrics-server
+        type: string
+      replicas:
+        default: 1
+        type: int
+      updateStrategy:
+        type: deploymentStrategy
+    type: object
+  monitoringInput:
+    properties:
+      answers:
+        type: map[string]
+      version:
+        type: string
+    type: object
+  monitoringOutput:
+    properties:
+      answers:
+        type: map[string]
+      version:
+        type: string
+    type: object
+  monitoringStatus:
+    properties:
+      conditions:
+        type: array[monitoringCondition]
+      grafanaEndpoint:
+        type: string
+    type: object
+  multiClusterApp:
+    properties:
+      annotations:
+        type: map[string]
+      answers:
+        type: array[answer]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      members:
+        type: array[member]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      revisionHistoryLimit:
+        default: 10
+        type: int
+      roles:
+        type: array[reference[roleTemplate]]
+      state:
+        type: string
+      status:
+        type: multiClusterAppStatus
+      targets:
+        type: array[target]
+      templateVersionId:
+        type: reference[templateVersion]
+      timeout:
+        default: 300
+        min: 1
+        type: int
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      upgradeStrategy:
+        type: upgradeStrategy
+      uuid:
+        type: string
+      wait:
+        default: false
+        type: boolean
+    required:
+    - roles
+    - templateVersionId
+    - targets
+    type: object
+  multiClusterAppRevision:
+    properties:
+      annotations:
+        type: map[string]
+      answers:
+        type: array[answer]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      templateVersionId:
+        type: reference[templateVersion]
+      uuid:
+        type: string
+    type: object
+  multiClusterAppRollbackInput:
+    properties:
+      revisionId:
+        type: reference[multiClusterAppRevision]
+    type: object
+  multiClusterAppStatus:
+    properties:
+      conditions:
+        type: array[appCondition]
+      helmVersion:
+        type: string
+      revisionId:
+        type: reference[multiClusterAppRevision]
+    required:
+    - revisionId
+    type: object
+  namespaceResourceQuota:
+    properties:
+      limit:
+        type: resourceQuotaLimit
+    type: object
+  networkConfig:
+    properties:
+      calicoNetworkProvider:
+        type: calicoNetworkProvider
+      canalNetworkProvider:
+        type: canalNetworkProvider
+      flannelNetworkProvider:
+        type: flannelNetworkProvider
+      mtu:
+        default: 0
+        type: int
+      nodeSelector:
+        type: map[string]
+      options:
+        type: map[string]
+      plugin:
+        default: canal
+        type: string
+      updateStrategy:
+        type: daemonSetUpdateStrategy
+      weaveNetworkProvider:
+        type: weaveNetworkProvider
+    type: object
+  networkVshpereOpts:
+    properties:
+      public-network:
+        type: string
+    type: object
+  node:
+    properties:
+      allocatable:
+        type: map[string]
+      amazonec2Config:
+        type: amazonec2config
+      annotations:
+        type: map[string]
+      appliedNodeVersion:
+        default: 0
+        type: int
+      azureConfig:
+        type: azureconfig
+      capacity:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      conditions:
+        type: array[nodeCondition]
+      controlPlane:
+        default: false
+        type: boolean
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      customConfig:
+        type: customConfig
+      description:
+        type: string
+      digitaloceanConfig:
+        type: digitaloceanconfig
+      dockerInfo:
+        type: dockerInfo
+      etcd:
+        default: false
+        type: boolean
+      externalIpAddress:
+        type: string
+      hostname:
+        type: string
+      id:
+        type: dnsLabel
+      imported:
+        default: false
+        type: boolean
+      info:
+        type: nodeInfo
+      ipAddress:
+        type: string
+      labels:
+        type: map[string]
+      limits:
+        type: map[string]
+      linodeConfig:
+        type: linodeconfig
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      nodeName:
+        type: string
+      nodePlan:
+        type: nodePlan
+      nodePoolId:
+        type: reference[nodePool]
+      nodeTaints:
+        type: array[taint]
+      nodeTemplateId:
+        type: reference[nodeTemplate]
+      ownerReferences:
+        type: array[ownerReference]
+      podCidr:
+        type: string
+      podCidrs:
+        type: array[string]
+      providerId:
+        type: string
+      publicEndpoints:
+        type: array[publicEndpoint]
+      removed:
+        type: date
+      requested:
+        type: map[string]
+      requestedHostname:
+        type: hostname
+      sshUser:
+        type: string
+      state:
+        type: string
+      taints:
+        type: array[taint]
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      unschedulable:
+        default: false
+        type: boolean
+      uuid:
+        type: string
+      vmwarevsphereConfig:
+        type: vmwarevsphereconfig
+      volumesAttached:
+        type: map[attachedVolume]
+      volumesInUse:
+        type: array[string]
+      worker:
+        default: false
+        type: boolean
+    required:
+    - clusterId
+    - requestedHostname
+    type: object
+  nodeCondition:
+    properties:
+      lastHeartbeatTime:
+        type: date
+      lastTransitionTime:
+        type: date
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  nodeDrainInput:
+    properties:
+      deleteLocalData:
+        default: false
+        type: boolean
+      force:
+        default: false
+        type: boolean
+      gracePeriod:
+        default: -1
+        type: int
+      ignoreDaemonSets:
+        default: true
+        type: boolean
+      timeout:
+        default: 60
+        max: 10800
+        min: 1
+        type: int
+    type: object
+  nodeDriver:
+    properties:
+      active:
+        default: false
+        type: boolean
+      annotations:
+        type: map[string]
+      builtin:
+        default: false
+        type: boolean
+      checksum:
+        type: string
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      externalId:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: nodeDriverStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uiUrl:
+        type: string
+      url:
+        type: string
+      uuid:
+        type: string
+      whitelistDomains:
+        type: array[string]
+    required:
+    - url
+    type: object
+  nodeDriverStatus:
+    properties:
+      appliedChecksum:
+        type: string
+      appliedDockerMachineVersion:
+        type: string
+      appliedURL:
+        type: string
+      conditions:
+        type: array[condition]
+    type: object
+  nodeInfo:
+    properties:
+      cpu:
+        type: cpuInfo
+      kubernetes:
+        type: kubernetesInfo
+      memory:
+        type: memoryInfo
+      os:
+        type: osInfo
+    type: object
+  nodePlan:
+    properties:
+      agentCheckInterval:
+        default: 120
+        max: 1800
+        min: 1
+        type: int
+      plan:
+        type: rkeConfigNodePlan
+      version:
+        default: 0
+        type: int
+    type: object
+  nodePool:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      controlPlane:
+        default: false
+        type: boolean
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      deleteNotReadyAfterSecs:
+        default: 0
+        max: 31540000
+        min: 0
+        type: int
+      displayName:
+        type: string
+      driver:
+        type: string
+      etcd:
+        default: false
+        type: boolean
+      hostnamePrefix:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      nodeAnnotations:
+        type: map[string]
+      nodeLabels:
+        type: map[string]
+      nodeTaints:
+        type: array[taint]
+      nodeTemplateId:
+        type: reference[nodeTemplate]
+      ownerReferences:
+        type: array[ownerReference]
+      quantity:
+        default: 1
+        type: int
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: nodePoolStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      worker:
+        default: false
+        type: boolean
+    required:
+    - clusterId
+    - nodeTemplateId
+    - hostnamePrefix
+    - quantity
+    type: object
+  nodePoolStatus:
+    properties:
+      conditions:
+        type: array[condition]
+    type: object
+  nodeRule:
+    properties:
+      condition:
+        default: notready
+        options:
+        - notready
+        - mem
+        - cpu
+        type: enum
+      cpuThreshold:
+        default: 70
+        min: 1
+        type: int
+      memThreshold:
+        default: 70
+        max: 100
+        min: 1
+        type: int
+      nodeId:
+        type: reference[node]
+      selector:
+        type: map[string]
+    required:
+    - condition
+    type: object
+  nodeTemplate:
+    properties:
+      amazonec2Config:
+        type: amazonec2config
+      annotations:
+        type: map[string]
+      authCertificateAuthority:
+        type: string
+      authKey:
+        type: string
+      azureConfig:
+        type: azureconfig
+      cloudCredentialId:
+        type: reference[cloudCredential]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      digitaloceanConfig:
+        type: digitaloceanconfig
+      dockerVersion:
+        type: string
+      driver:
+        type: string
+      engineEnv:
+        type: map[string]
+      engineInsecureRegistry:
+        type: array[string]
+      engineInstallURL:
+        type: string
+      engineLabel:
+        type: map[string]
+      engineOpt:
+        type: map[string]
+      engineRegistryMirror:
+        type: array[string]
+      engineStorageDriver:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      linodeConfig:
+        type: linodeconfig
+      name:
+        type: string
+      nodeTaints:
+        type: array[taint]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: nodeTemplateStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      useInternalIpAddress:
+        default: true
+        type: boolean
+      uuid:
+        type: string
+      vmwarevsphereConfig:
+        type: vmwarevsphereconfig
+    type: object
+  nodeTemplateCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  nodeTemplateStatus:
+    properties:
+      conditions:
+        type: array[nodeTemplateCondition]
+    type: object
+  nodeUpgradeStrategy:
+    properties:
+      drain:
+        default: false
+        type: boolean
+      maxUnavailableControlplane:
+        default: '1'
+        min: 1
+        type: string
+      maxUnavailableWorker:
+        default: 10%
+        min: 1
+        type: string
+      nodeDrainInput:
+        type: nodeDrainInput
+    type: object
+  nodelocal:
+    properties:
+      ipAddress:
+        type: string
+      nodeSelector:
+        type: map[string]
+      updateStrategy:
+        type: daemonSetUpdateStrategy
+    type: object
+  notification:
+    properties:
+      message:
+        type: string
+      pagerdutyConfig:
+        type: pagerdutyConfig
+      slackConfig:
+        type: slackConfig
+      smtpConfig:
+        type: smtpConfig
+      webhookConfig:
+        type: webhookConfig
+      wechatConfig:
+        type: wechatConfig
+    type: object
+  notifier:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      pagerdutyConfig:
+        type: pagerdutyConfig
+      removed:
+        type: date
+      sendResolved:
+        default: false
+        type: boolean
+      slackConfig:
+        type: slackConfig
+      smtpConfig:
+        type: smtpConfig
+      state:
+        type: string
+      status:
+        type: notifierStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      webhookConfig:
+        type: webhookConfig
+      wechatConfig:
+        type: wechatConfig
+    required:
+    - name
+    type: object
+  notifierStatus:
+    properties: {}
+    type: object
+  oktaConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      displayNameField:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupsField:
+        type: string
+      idpMetadataContent:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherApiHost:
+        type: string
+      removed:
+        type: date
+      spCert:
+        type: string
+      spKey:
+        type: password
+      type:
+        type: string
+      uidField:
+        type: string
+      userNameField:
+        type: string
+      uuid:
+        type: string
+    required:
+    - userNameField
+    - idpMetadataContent
+    - displayNameField
+    - accessMode
+    - uidField
+    - rancherApiHost
+    - spCert
+    - groupsField
+    - spKey
+    type: object
+  openLdapConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      certificate:
+        type: string
+      connectionTimeout:
+        default: 5000
+        type: int
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      enabled:
+        default: false
+        type: boolean
+      groupDNAttribute:
+        default: entryDN
+        type: string
+      groupMemberMappingAttribute:
+        default: member
+        type: string
+      groupMemberUserAttribute:
+        default: entryDN
+        type: string
+      groupNameAttribute:
+        default: cn
+        type: string
+      groupObjectClass:
+        default: groupOfNames
+        type: string
+      groupSearchAttribute:
+        default: cn
+        type: string
+      groupSearchBase:
+        type: string
+      groupSearchFilter:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      nestedGroupMembershipEnabled:
+        default: false
+        type: boolean
+      ownerReferences:
+        type: array[ownerReference]
+      port:
+        default: 389
+        type: int
+      removed:
+        type: date
+      servers:
+        type: array[string]
+      serviceAccountDistinguishedName:
+        type: string
+      serviceAccountPassword:
+        type: password
+      tls:
+        default: false
+        type: boolean
+      type:
+        type: string
+      userDisabledBitMask:
+        default: 0
+        type: int
+      userEnabledAttribute:
+        type: string
+      userLoginAttribute:
+        default: uid
+        type: string
+      userMemberAttribute:
+        default: memberOf
+        type: string
+      userNameAttribute:
+        default: cn
+        type: string
+      userObjectClass:
+        default: inetOrgPerson
+        type: string
+      userSearchAttribute:
+        default: uid|sn|givenName
+        type: string
+      userSearchBase:
+        type: string
+      userSearchFilter:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupObjectClass
+    - userSearchBase
+    - servers
+    - userNameAttribute
+    - serviceAccountPassword
+    - port
+    - groupSearchAttribute
+    - accessMode
+    - serviceAccountDistinguishedName
+    - groupMemberMappingAttribute
+    - userMemberAttribute
+    - groupNameAttribute
+    - userLoginAttribute
+    - tls
+    - userSearchAttribute
+    - connectionTimeout
+    - userObjectClass
+    type: object
+  openLdapTestAndApplyInput:
+    properties:
+      ldapConfig:
+        type: ldapConfig
+      password:
+        type: password
+      username:
+        type: string
+    required:
+    - password
+    type: object
+  openstackCloudProvider:
+    properties:
+      blockStorage:
+        type: blockStorageOpenstackOpts
+      global:
+        type: globalOpenstackOpts
+      loadBalancer:
+        type: loadBalancerOpenstackOpts
+      metadata:
+        type: metadataOpenstackOpts
+      route:
+        type: routeOpenstackOpts
+    type: object
+  osInfo:
+    properties:
+      dockerVersion:
+        type: string
+      kernelVersion:
+        type: string
+      operatingSystem:
+        type: string
+    type: object
+  ownerReference:
+    properties:
+      apiVersion:
+        type: string
+      blockOwnerDeletion:
+        type: boolean
+      controller:
+        type: boolean
+      kind:
+        type: string
+      name:
+        type: string
+      uid:
+        type: string
+    type: object
+  pagerdutyConfig:
+    properties:
+      proxyUrl:
+        type: string
+      serviceKey:
+        type: string
+    required:
+    - serviceKey
+    type: object
+  pingConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      displayNameField:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupsField:
+        type: string
+      idpMetadataContent:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      rancherApiHost:
+        type: string
+      removed:
+        type: date
+      spCert:
+        type: string
+      spKey:
+        type: password
+      type:
+        type: string
+      uidField:
+        type: string
+      userNameField:
+        type: string
+      uuid:
+        type: string
+    required:
+    - userNameField
+    - idpMetadataContent
+    - displayNameField
+    - accessMode
+    - uidField
+    - rancherApiHost
+    - spCert
+    - groupsField
+    - spKey
+    type: object
+  podRule:
+    properties:
+      condition:
+        default: notrunning
+        options:
+        - notrunning
+        - notscheduled
+        - restarts
+        type: enum
+      podId:
+        type: reference[/v3/projects/schemas/pod]
+      restartIntervalSeconds:
+        default: 300
+        min: 1
+        type: int
+      restartTimes:
+        default: 3
+        min: 1
+        type: int
+    required:
+    - condition
+    - podId
+    type: object
+  podSecurityPolicyTemplate:
+    properties:
+      allowPrivilegeEscalation:
+        type: boolean
+      allowedCSIDrivers:
+        type: array[allowedCSIDriver]
+      allowedCapabilities:
+        type: array[string]
+      allowedFlexVolumes:
+        type: array[allowedFlexVolume]
+      allowedHostPaths:
+        type: array[allowedHostPath]
+      allowedProcMountTypes:
+        type: array[string]
+      allowedUnsafeSysctls:
+        type: array[string]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      defaultAddCapabilities:
+        type: array[string]
+      defaultAllowPrivilegeEscalation:
+        type: boolean
+      description:
+        type: string
+      forbiddenSysctls:
+        type: array[string]
+      fsGroup:
+        type: fsGroupStrategyOptions
+      hostIPC:
+        default: false
+        type: boolean
+      hostNetwork:
+        default: false
+        type: boolean
+      hostPID:
+        default: false
+        type: boolean
+      hostPorts:
+        type: array[hostPortRange]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      privileged:
+        default: false
+        type: boolean
+      readOnlyRootFilesystem:
+        default: false
+        type: boolean
+      removed:
+        type: date
+      requiredDropCapabilities:
+        type: array[string]
+      runAsGroup:
+        type: runAsGroupStrategyOptions
+      runAsUser:
+        type: runAsUserStrategyOptions
+      runtimeClass:
+        type: runtimeClassStrategyOptions
+      seLinux:
+        type: seLinuxStrategyOptions
+      supplementalGroups:
+        type: supplementalGroupsStrategyOptions
+      uuid:
+        type: string
+      volumes:
+        type: array[string]
+    type: object
+  podSecurityPolicyTemplateProjectBinding:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      podSecurityPolicyTemplateId:
+        type: reference[podSecurityPolicyTemplate]
+      removed:
+        type: date
+      targetProjectId:
+        type: reference[project]
+      uuid:
+        type: string
+    required:
+    - targetProjectId
+    - podSecurityPolicyTemplateId
+    - namespaceId
+    type: object
+  policyRule:
+    properties:
+      apiGroups:
+        type: array[string]
+      nonResourceURLs:
+        type: array[string]
+      resourceNames:
+        type: array[string]
+      resources:
+        type: array[string]
+      verbs:
+        type: array[string]
+    type: object
+  portCheck:
+    properties:
+      address:
+        type: string
+      port:
+        default: 0
+        type: int
+      protocol:
+        type: string
+    type: object
+  preference:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+      value:
+        type: string
+    required:
+    - name
+    - value
+    type: object
+  principal:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      extraInfo:
+        type: map[string]
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      loginName:
+        type: string
+      me:
+        default: false
+        type: boolean
+      memberOf:
+        default: false
+        type: boolean
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      principalType:
+        type: string
+      profilePicture:
+        type: string
+      profileURL:
+        type: string
+      provider:
+        type: string
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  privateRegistry:
+    properties:
+      isDefault:
+        default: false
+        type: boolean
+      password:
+        type: password
+      url:
+        type: string
+      user:
+        type: string
+    type: object
+  process:
+    properties:
+      args:
+        type: array[string]
+      binds:
+        type: array[string]
+      command:
+        type: array[string]
+      env:
+        type: array[string]
+      healthCheck:
+        type: healthCheck
+      image:
+        type: string
+      imageRegistryAuthConfig:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: string
+      networkMode:
+        type: string
+      pidMode:
+        type: string
+      privileged:
+        default: false
+        type: boolean
+      publish:
+        type: array[string]
+      restartPolicy:
+        type: string
+      user:
+        type: string
+      volumesFrom:
+        type: array[string]
+    type: object
+  project:
+    properties:
+      annotations:
+        type: map[string]
+      clusterId:
+        type: reference[cluster]
+      conditions:
+        type: array[projectCondition]
+      containerDefaultResourceLimit:
+        type: containerResourceLimit
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      enableProjectMonitoring:
+        default: false
+        type: boolean
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      monitoringStatus:
+        type: monitoringStatus
+      name:
+        type: string
+      namespaceDefaultResourceQuota:
+        type: namespaceResourceQuota
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      podSecurityPolicyTemplateId:
+        type: string
+      removed:
+        type: date
+      resourceQuota:
+        type: projectResourceQuota
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - clusterId
+    - name
+    type: object
+  projectAlert:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      displayName:
+        type: string
+      initialWaitSeconds:
+        default: 180
+        min: 0
+        type: int
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      projectId:
+        type: reference[project]
+      recipients:
+        type: array[recipient]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 0
+        type: int
+      severity:
+        default: critical
+        options:
+        - info
+        - critical
+        - warning
+        type: enum
+      state:
+        type: string
+      status:
+        type: alertStatus
+      targetPod:
+        type: targetPod
+      targetWorkload:
+        type: targetWorkload
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - repeatIntervalSeconds
+    - initialWaitSeconds
+    - recipients
+    - severity
+    - displayName
+    type: object
+  projectAlertGroup:
+    properties:
+      alertState:
+        default: active
+        options:
+        - active
+        - inactive
+        - alerting
+        - muted
+        type: enum
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      groupIntervalSeconds:
+        default: 180
+        min: 1
+        type: int
+      groupWaitSeconds:
+        default: 30
+        min: 1
+        type: int
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      projectId:
+        type: reference[project]
+      recipients:
+        type: array[recipient]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 1
+        type: int
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - groupIntervalSeconds
+    - repeatIntervalSeconds
+    - groupWaitSeconds
+    - name
+    type: object
+  projectAlertRule:
+    properties:
+      alertState:
+        default: active
+        options:
+        - active
+        - inactive
+        - alerting
+        - muted
+        type: enum
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      groupId:
+        type: reference[projectAlertGroup]
+      groupIntervalSeconds:
+        default: 180
+        min: 1
+        type: int
+      groupWaitSeconds:
+        default: 30
+        min: 1
+        type: int
+      id:
+        type: dnsLabel
+      inherited:
+        default: true
+        type: boolean
+      labels:
+        type: map[string]
+      metricRule:
+        type: metricRule
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      podRule:
+        type: podRule
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      repeatIntervalSeconds:
+        default: 3600
+        min: 1
+        type: int
+      severity:
+        default: critical
+        options:
+        - info
+        - critical
+        - warning
+        type: enum
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+      workloadRule:
+        type: workloadRule
+    required:
+    - repeatIntervalSeconds
+    - severity
+    - groupIntervalSeconds
+    - groupWaitSeconds
+    type: object
+  projectCatalog:
+    properties:
+      annotations:
+        type: map[string]
+      branch:
+        type: string
+      commit:
+        type: string
+      conditions:
+        type: array[catalogCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      helmVersion:
+        type: string
+      kind:
+        type: string
+      labels:
+        type: map[string]
+      lastRefreshTimestamp:
+        type: string
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      password:
+        type: password
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      url:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+    required:
+    - url
+    type: object
+  projectCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  projectLogging:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      customTargetConfig:
+        type: customTargetConfig
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      enableJSONParsing:
+        default: false
+        type: boolean
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      id:
+        type: dnsLabel
+      kafkaConfig:
+        type: kafkaConfig
+      labels:
+        type: map[string]
+      name:
+        type: string
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      outputFlushInterval:
+        default: 60
+        type: int
+      outputTags:
+        type: map[string]
+      ownerReferences:
+        type: array[ownerReference]
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      splunkConfig:
+        type: splunkConfig
+      state:
+        type: string
+      status:
+        type: projectLoggingStatus
+      syslogConfig:
+        type: syslogConfig
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    type: object
+  projectLoggingSpec:
+    properties:
+      customTargetConfig:
+        type: customTargetConfig
+      displayName:
+        type: string
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      enableJSONParsing:
+        default: false
+        type: boolean
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      kafkaConfig:
+        type: kafkaConfig
+      outputFlushInterval:
+        default: 60
+        type: int
+      outputTags:
+        type: map[string]
+      projectId:
+        type: reference[project]
+      splunkConfig:
+        type: splunkConfig
+      syslogConfig:
+        type: syslogConfig
+    type: object
+  projectLoggingStatus:
+    properties:
+      appliedSpec:
+        type: projectLoggingSpec
+      conditions:
+        type: array[loggingCondition]
+    type: object
+  projectMetricNamesInput:
+    properties:
+      projectId:
+        type: reference[project]
+    type: object
+  projectMonitorGraph:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      detailsMetricsSelector:
+        type: map[string]
+      displayResourceType:
+        options:
+        - workload
+        - pod
+        - container
+        type: enum
+      graphType:
+        options:
+        - graph
+        - singlestat
+        type: enum
+      labels:
+        type: map[string]
+      metricsSelector:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      priority:
+        default: 0
+        type: int
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      resourceType:
+        options:
+        - workload
+        - pod
+        - container
+        type: enum
+      uuid:
+        type: string
+      yAxis:
+        type: yAxis
+    type: object
+  projectNetworkPolicy:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: projectNetworkPolicyStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      uuid:
+        type: string
+    required:
+    - projectId
+    type: object
+  projectNetworkPolicyStatus:
+    properties: {}
+    type: object
+  projectResourceQuota:
+    properties:
+      limit:
+        type: resourceQuotaLimit
+      usedLimit:
+        type: resourceQuotaLimit
+    type: object
+  projectRoleTemplateBinding:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      groupId:
+        type: reference[group]
+      groupPrincipalId:
+        type: reference[principal]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      namespaceId:
+        type: reference[/v3/clusters/schemas/namespace]
+      ownerReferences:
+        type: array[ownerReference]
+      projectId:
+        type: reference[project]
+      removed:
+        type: date
+      roleTemplateId:
+        type: reference[roleTemplate]
+      serviceAccount:
+        type: string
+      userId:
+        type: reference[user]
+      userPrincipalId:
+        type: reference[principal]
+      uuid:
+        type: string
+    required:
+    - roleTemplateId
+    - projectId
+    type: object
+  projectTestInput:
+    properties:
+      customTargetConfig:
+        type: customTargetConfig
+      elasticsearchConfig:
+        type: elasticsearchConfig
+      fluentForwarderConfig:
+        type: fluentForwarderConfig
+      kafkaConfig:
+        type: kafkaConfig
+      outputTags:
+        type: map[string]
+      projectId:
+        type: reference[project]
+      splunkConfig:
+        type: splunkConfig
+      syslogConfig:
+        type: syslogConfig
+    required:
+    - projectId
+    type: object
+  publicEndpoint:
+    properties:
+      addresses:
+        type: array[string]
+      allNodes:
+        default: false
+        type: boolean
+      hostname:
+        type: string
+      ingressId:
+        type: reference[ingress]
+      nodeId:
+        type: reference[/v3/schemas/node]
+      path:
+        type: string
+      podId:
+        type: reference[pod]
+      port:
+        default: 0
+        type: int
+      protocol:
+        type: string
+      serviceId:
+        type: reference[service]
+    type: object
+  queryClusterGraph:
+    properties:
+      graphID:
+        type: reference[clusterMonitorGraph]
+      series:
+        type: array[reference[timeSeries]]
+    type: object
+  queryClusterGraphOutput:
+    properties:
+      data:
+        type: array[queryClusterGraph]
+      type:
+        type: string
+    type: object
+  queryClusterMetricInput:
+    properties:
+      clusterId:
+        type: reference[cluster]
+      expr:
+        type: string
+      from:
+        type: string
+      interval:
+        type: string
+      to:
+        type: string
+    required:
+    - expr
+    type: object
+  queryGraphInput:
+    properties:
+      filters:
+        type: map[string]
+      from:
+        type: string
+      interval:
+        type: string
+      isDetails:
+        default: false
+        type: boolean
+      metricParams:
+        type: map[string]
+      to:
+        type: string
+    type: object
+  queryMetricOutput:
+    properties:
+      series:
+        type: array[reference[timeSeries]]
+      type:
+        type: string
+    type: object
+  queryProjectGraph:
+    properties:
+      graphID:
+        type: reference[projectMonitorGraph]
+      series:
+        type: array[reference[timeSeries]]
+    type: object
+  queryProjectGraphOutput:
+    properties:
+      data:
+        type: array[queryProjectGraph]
+      type:
+        type: string
+    type: object
+  queryProjectMetricInput:
+    properties:
+      expr:
+        type: string
+      from:
+        type: string
+      interval:
+        type: string
+      projectId:
+        type: reference[project]
+      to:
+        type: string
+    required:
+    - expr
+    type: object
+  question:
+    properties:
+      default:
+        type: string
+      description:
+        type: string
+      group:
+        type: string
+      invalidChars:
+        type: string
+      label:
+        type: string
+      max:
+        default: 0
+        type: int
+      maxLength:
+        default: 0
+        type: int
+      min:
+        default: 0
+        type: int
+      minLength:
+        default: 0
+        type: int
+      options:
+        type: array[string]
+      required:
+        default: false
+        type: boolean
+      satisfies:
+        type: string
+      showIf:
+        type: string
+      showSubquestionIf:
+        type: string
+      subquestions:
+        type: array[subQuestion]
+      type:
+        type: string
+      validChars:
+        type: string
+      variable:
+        type: string
+    type: object
+  rancherKubernetesEngineConfig:
+    properties:
+      addonJobTimeout:
+        default: 30
+        type: int
+      addons:
+        type: string
+      addonsInclude:
+        type: array[string]
+      authentication:
+        type: authnConfig
+      authorization:
+        type: authzConfig
+      bastionHost:
+        type: bastionHost
+      cloudProvider:
+        type: cloudProvider
+      clusterName:
+        type: string
+      dns:
+        type: dnsConfig
+      ignoreDockerVersion:
+        default: true
+        type: boolean
+      ingress:
+        type: ingressConfig
+      kubernetesVersion:
+        type: string
+      monitoring:
+        type: monitoringConfig
+      network:
+        type: networkConfig
+      nodes:
+        type: array[rkeConfigNode]
+      prefixPath:
+        type: string
+      privateRegistries:
+        type: array[privateRegistry]
+      restore:
+        type: restoreConfig
+      rotateCertificates:
+        type: rotateCertificates
+      services:
+        type: rkeConfigServices
+      sshAgentAuth:
+        default: false
+        type: boolean
+      sshCertPath:
+        type: string
+      sshKeyPath:
+        type: string
+      upgradeStrategy:
+        type: nodeUpgradeStrategy
+    type: object
+  recipient:
+    properties:
+      notifierId:
+        type: reference[notifier]
+      notifierType:
+        options:
+        - slack
+        - email
+        - pagerduty
+        - webhook
+        - wechat
+        type: enum
+      recipient:
+        type: string
+    required:
+    - notifierType
+    - notifierId
+    type: object
+  resourceQuotaLimit:
+    properties:
+      configMaps:
+        type: string
+      limitsCpu:
+        type: string
+      limitsMemory:
+        type: string
+      persistentVolumeClaims:
+        type: string
+      pods:
+        type: string
+      replicationControllers:
+        type: string
+      requestsCpu:
+        type: string
+      requestsMemory:
+        type: string
+      requestsStorage:
+        type: string
+      secrets:
+        type: string
+      services:
+        type: string
+      servicesLoadBalancers:
+        type: string
+      servicesNodePorts:
+        type: string
+    type: object
+  restoreConfig:
+    properties:
+      restore:
+        default: false
+        type: boolean
+      snapshotName:
+        type: string
+    type: object
+  restoreFromEtcdBackupInput:
+    properties:
+      etcdBackupId:
+        type: reference[etcdBackup]
+      restoreRkeConfig:
+        type: string
+    type: object
+  rkeAddon:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      template:
+        type: string
+      uuid:
+        type: string
+    type: object
+  rkeConfigNode:
+    properties:
+      address:
+        type: string
+      dockerSocket:
+        type: string
+      hostnameOverride:
+        type: string
+      internalAddress:
+        type: string
+      labels:
+        type: map[string]
+      nodeId:
+        type: reference[node]
+      port:
+        type: string
+      role:
+        options:
+        - etcd
+        - worker
+        - controlplane
+        type: array[enum]
+      sshAgentAuth:
+        default: false
+        type: boolean
+      sshCert:
+        type: string
+      sshCertPath:
+        type: string
+      sshKey:
+        type: password
+      sshKeyPath:
+        type: string
+      taints:
+        type: array[rkeTaint]
+      user:
+        type: string
+    type: object
+  rkeConfigNodePlan:
+    properties:
+      address:
+        type: string
+      annotations:
+        type: map[string]
+      files:
+        type: array[file]
+      labels:
+        type: map[string]
+      portChecks:
+        type: array[portCheck]
+      processes:
+        type: map[process]
+      taints:
+        type: array[rkeTaint]
+    type: object
+  rkeConfigServices:
+    properties:
+      etcd:
+        type: etcdService
+      kubeApi:
+        type: kubeAPIService
+      kubeController:
+        type: kubeControllerService
+      kubelet:
+        type: kubeletService
+      kubeproxy:
+        type: kubeproxyService
+      scheduler:
+        type: schedulerService
+    type: object
+  rkeK8sServiceOption:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      serviceOptions:
+        type: kubernetesServicesOptions
+      uuid:
+        type: string
+    type: object
+  rkeK8sSystemImage:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      systemImages:
+        type: rkeSystemImages
+      uuid:
+        type: string
+    type: object
+  rkeSystemImages:
+    properties:
+      alpine:
+        type: string
+      calicoCni:
+        type: string
+      calicoControllers:
+        type: string
+      calicoCtl:
+        type: string
+      calicoFlexVol:
+        type: string
+      calicoNode:
+        type: string
+      canalCni:
+        type: string
+      canalFlannel:
+        type: string
+      canalFlexVol:
+        type: string
+      canalNode:
+        type: string
+      certDownloader:
+        type: string
+      coredns:
+        type: string
+      corednsAutoscaler:
+        type: string
+      dnsmasq:
+        type: string
+      etcd:
+        type: string
+      flannel:
+        type: string
+      flannelCni:
+        type: string
+      ingress:
+        type: string
+      ingressBackend:
+        type: string
+      kubedns:
+        type: string
+      kubednsAutoscaler:
+        type: string
+      kubednsSidecar:
+        type: string
+      kubernetes:
+        type: string
+      kubernetesServicesSidecar:
+        type: string
+      metricsServer:
+        type: string
+      nginxProxy:
+        type: string
+      nodelocal:
+        type: string
+      podInfraContainer:
+        type: string
+      weaveCni:
+        type: string
+      weaveNode:
+        type: string
+      windowsPodInfraContainer:
+        type: string
+    type: object
+  rkeTaint:
+    properties:
+      effect:
+        type: string
+      key:
+        type: string
+      timeAdded:
+        type: date
+      value:
+        type: string
+    type: object
+  roleTemplate:
+    properties:
+      administrative:
+        default: false
+        type: boolean
+      annotations:
+        type: map[string]
+      builtin:
+        default: false
+        type: boolean
+      clusterCreatorDefault:
+        default: false
+        type: boolean
+      context:
+        options:
+        - project
+        - cluster
+        type: string
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      external:
+        default: false
+        type: boolean
+      hidden:
+        default: false
+        type: boolean
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      locked:
+        default: false
+        type: boolean
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      projectCreatorDefault:
+        default: false
+        type: boolean
+      removed:
+        type: date
+      roleTemplateIds:
+        type: array[reference[roleTemplate]]
+      rules:
+        type: array[policyRule]
+      uuid:
+        type: string
+    required:
+    - name
+    - projectCreatorDefault
+    - clusterCreatorDefault
+    type: object
+  rollingUpdate:
+    properties:
+      batchSize:
+        default: 0
+        type: int
+      interval:
+        default: 0
+        type: int
+    type: object
+  rollingUpdateDaemonSet:
+    properties:
+      maxUnavailable:
+        type: intOrString
+    type: object
+  rollingUpdateDeployment:
+    properties:
+      maxSurge:
+        type: intOrString
+      maxUnavailable:
+        type: intOrString
+    type: object
+  rotateCertificateInput:
+    properties:
+      caCertificates:
+        default: false
+        type: boolean
+      services:
+        options:
+        - etcd
+        - kubelet
+        - kube-apiserver
+        - kube-proxy
+        - kube-scheduler
+        - kube-controller-manager
+        type: enum
+    type: object
+  rotateCertificateOutput:
+    properties:
+      message:
+        type: string
+    type: object
+  rotateCertificates:
+    properties:
+      caCertificates:
+        default: false
+        type: boolean
+      services:
+        options:
+        - etcd
+        - kubelet
+        - kube-apiserver
+        - kube-proxy
+        - kube-scheduler
+        - kube-controller-manager
+        type: enum
+    type: object
+  routeOpenstackOpts:
+    properties:
+      router-id:
+        type: string
+    type: object
+  runAsGroupStrategyOptions:
+    properties:
+      ranges:
+        type: array[idRange]
+      rule:
+        type: string
+    type: object
+  runAsUserStrategyOptions:
+    properties:
+      ranges:
+        type: array[idRange]
+      rule:
+        type: string
+    type: object
+  runtimeClassStrategyOptions:
+    properties:
+      allowedRuntimeClassNames:
+        type: array[string]
+      defaultRuntimeClassName:
+        type: string
+    type: object
+  s3BackupConfig:
+    properties:
+      accessKey:
+        type: string
+      bucketName:
+        type: string
+      customCa:
+        type: string
+      endpoint:
+        type: string
+      folder:
+        type: string
+      region:
+        type: string
+      secretKey:
+        type: password
+    type: object
+  samlConfigTestInput:
+    properties:
+      finalRedirectUrl:
+        type: string
+    type: object
+  samlConfigTestOutput:
+    properties:
+      idpRedirectUrl:
+        type: string
+    type: object
+  saveAsTemplateInput:
+    properties:
+      clusterTemplateName:
+        type: string
+      clusterTemplateRevisionName:
+        type: string
+    type: object
+  saveAsTemplateOutput:
+    properties:
+      clusterTemplateName:
+        type: string
+      clusterTemplateRevisionName:
+        type: string
+    type: object
+  scheduledClusterScan:
+    properties:
+      enabled:
+        default: false
+        type: boolean
+      scanConfig:
+        type: clusterScanConfig
+      scheduleConfig:
+        type: scheduledClusterScanConfig
+    type: object
+  scheduledClusterScanConfig:
+    properties:
+      cronSchedule:
+        type: string
+      retention:
+        default: 0
+        type: int
+    type: object
+  scheduledClusterScanStatus:
+    properties:
+      enabled:
+        default: false
+        type: boolean
+      lastRunTimestamp:
+        type: string
+    type: object
+  schedulerService:
+    properties:
+      extraArgs:
+        type: map[string]
+      extraBinds:
+        type: array[string]
+      extraEnv:
+        type: array[string]
+      image:
+        type: string
+    type: object
+  seLinuxOptions:
+    properties:
+      level:
+        type: string
+      role:
+        type: string
+      type:
+        type: string
+      user:
+        type: string
+    type: object
+  seLinuxStrategyOptions:
+    properties:
+      rule:
+        type: string
+      seLinuxOptions:
+        type: seLinuxOptions
+    type: object
+  searchPrincipalsInput:
+    properties:
+      name:
+        type: string
+      principalType:
+        options:
+        - user
+        - group
+        type: enum
+    required:
+    - name
+    type: object
+  secretsEncryptionConfig:
+    properties:
+      customConfig:
+        type: map[json]
+      enabled:
+        default: false
+        type: boolean
+    type: object
+  serviceOverride:
+    properties:
+      region:
+        type: string
+      service:
+        type: string
+      signing-method:
+        type: string
+      signing-name:
+        type: string
+      signing-region:
+        type: string
+      url:
+        type: string
+    type: object
+  setPasswordInput:
+    properties:
+      newPassword:
+        type: string
+    required:
+    - newPassword
+    type: object
+  setPodSecurityPolicyTemplateInput:
+    properties:
+      podSecurityPolicyTemplateId:
+        type: reference[podSecurityPolicyTemplate]
+    required:
+    - podSecurityPolicyTemplateId
+    type: object
+  setting:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      customized:
+        default: false
+        type: boolean
+      default:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      source:
+        options:
+        - db
+        - default
+        - env
+        type: enum
+      uuid:
+        type: string
+      value:
+        type: string
+    required:
+    - name
+    - value
+    type: object
+  shibbolethConfig:
+    properties:
+      accessMode:
+        options:
+        - required
+        - restricted
+        - unrestricted
+        type: enum
+      allowedPrincipalIds:
+        type: array[reference[principal]]
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      displayNameField:
+        type: string
+      enabled:
+        default: false
+        type: boolean
+      groupsField:
+        type: string
+      idpMetadataContent:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      openLdapConfig:
+        type: ldapFields
+      ownerReferences:
+        type: array[ownerReference]
+      rancherApiHost:
+        type: string
+      removed:
+        type: date
+      spCert:
+        type: string
+      spKey:
+        type: password
+      type:
+        type: string
+      uidField:
+        type: string
+      userNameField:
+        type: string
+      uuid:
+        type: string
+    required:
+    - userNameField
+    - idpMetadataContent
+    - displayNameField
+    - accessMode
+    - rancherApiHost
+    - spCert
+    - groupsField
+    - spKey
+    - uidField
+    type: object
+  slackConfig:
+    properties:
+      defaultRecipient:
+        type: string
+      proxyUrl:
+        type: string
+      url:
+        type: string
+    required:
+    - url
+    type: object
+  smtpConfig:
+    properties:
+      defaultRecipient:
+        type: string
+      host:
+        type: hostname
+      password:
+        type: password
+      port:
+        default: 587
+        max: 65535
+        min: 1
+        type: int
+      sender:
+        type: string
+      tls:
+        default: true
+        type: boolean
+      username:
+        type: string
+    required:
+    - defaultRecipient
+    - tls
+    - sender
+    - host
+    - port
+    type: object
+  splunkConfig:
+    properties:
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      clientKeyPass:
+        type: string
+      endpoint:
+        type: string
+      index:
+        type: string
+      source:
+        type: string
+      sslVerify:
+        default: false
+        type: boolean
+      token:
+        type: password
+    required:
+    - endpoint
+    - token
+    type: object
+  subQuestion:
+    properties:
+      default:
+        type: string
+      description:
+        type: string
+      group:
+        type: string
+      invalidChars:
+        type: string
+      label:
+        type: string
+      max:
+        default: 0
+        type: int
+      maxLength:
+        default: 0
+        type: int
+      min:
+        default: 0
+        type: int
+      minLength:
+        default: 0
+        type: int
+      options:
+        type: array[string]
+      required:
+        default: false
+        type: boolean
+      satisfies:
+        type: string
+      showIf:
+        type: string
+      type:
+        type: string
+      validChars:
+        type: string
+      variable:
+        type: string
+    type: object
+  subscribe:
+    properties:
+      apiVersions:
+        type: array[string]
+      projectId:
+        type: reference[/v3/schemas/project]
+      resourceTypes:
+        type: array[string]
+    type: object
+  supplementalGroupsStrategyOptions:
+    properties:
+      ranges:
+        type: array[idRange]
+      rule:
+        type: string
+    type: object
+  syslogConfig:
+    properties:
+      certificate:
+        type: string
+      clientCert:
+        type: string
+      clientKey:
+        type: string
+      enableTls:
+        default: false
+        type: boolean
+      endpoint:
+        type: string
+      program:
+        type: string
+      protocol:
+        default: udp
+        options:
+        - udp
+        - tcp
+        type: enum
+      severity:
+        default: notice
+        options:
+        - emerg
+        - alert
+        - crit
+        - err
+        - warning
+        - notice
+        - info
+        - debug
+        type: enum
+      sslVerify:
+        default: false
+        type: boolean
+      token:
+        type: password
+    required:
+    - endpoint
+    type: object
+  systemServiceRule:
+    properties:
+      condition:
+        default: scheduler
+        options:
+        - etcd
+        - controller-manager
+        - scheduler
+        type: enum
+    required:
+    - condition
+    type: object
+  taint:
+    properties:
+      effect:
+        type: string
+      key:
+        type: string
+      timeAdded:
+        type: date
+      value:
+        type: string
+    type: object
+  target:
+    properties:
+      appId:
+        type: reference[v3/projects/schemas/app]
+      healthState:
+        type: string
+      projectId:
+        type: reference[project]
+      state:
+        type: string
+    required:
+    - projectId
+    type: object
+  targetEvent:
+    properties:
+      eventType:
+        default: Warning
+        options:
+        - Normal
+        - Warning
+        type: enum
+      resourceKind:
+        options:
+        - Pod
+        - Node
+        - Deployment
+        - StatefulSet
+        - DaemonSet
+        type: enum
+    required:
+    - eventType
+    - resourceKind
+    type: object
+  targetNode:
+    properties:
+      condition:
+        default: notready
+        options:
+        - notready
+        - mem
+        - cpu
+        type: enum
+      cpuThreshold:
+        default: 70
+        min: 1
+        type: int
+      memThreshold:
+        default: 70
+        max: 100
+        min: 1
+        type: int
+      nodeId:
+        type: reference[node]
+      selector:
+        type: map[string]
+    required:
+    - condition
+    type: object
+  targetPod:
+    properties:
+      condition:
+        default: notrunning
+        options:
+        - notrunning
+        - notscheduled
+        - restarts
+        type: enum
+      podId:
+        type: reference[/v3/projects/schemas/pod]
+      restartIntervalSeconds:
+        default: 300
+        min: 1
+        type: int
+      restartTimes:
+        default: 3
+        min: 1
+        type: int
+    required:
+    - condition
+    - podId
+    type: object
+  targetSystemService:
+    properties:
+      condition:
+        default: scheduler
+        options:
+        - etcd
+        - controller-manager
+        - scheduler
+        type: enum
+    required:
+    - condition
+    type: object
+  targetWorkload:
+    properties:
+      availablePercentage:
+        default: 70
+        max: 100
+        min: 1
+        type: int
+      selector:
+        type: map[string]
+      workloadId:
+        type: string
+    required:
+    - availablePercentage
+    type: object
+  template:
+    properties:
+      annotations:
+        type: map[string]
+      catalogId:
+        type: reference[catalog]
+      categories:
+        type: array[string]
+      category:
+        type: string
+      clusterCatalogId:
+        type: reference[clusterCatalog]
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      defaultTemplateVersionId:
+        type: reference[templateVersion]
+      defaultVersion:
+        type: string
+      description:
+        type: string
+      folderName:
+        type: string
+      icon:
+        type: string
+      iconFilename:
+        type: string
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      maintainer:
+        type: string
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      path:
+        type: string
+      projectCatalogId:
+        type: reference[projectCatalog]
+      projectId:
+        type: reference[project]
+      projectURL:
+        type: string
+      readme:
+        type: string
+      removed:
+        type: date
+      state:
+        type: string
+      status:
+        type: templateStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      upgradeFrom:
+        type: string
+      uuid:
+        type: string
+      versionLinks:
+        type: map[string]
+      versions:
+        type: array[templateVersionSpec]
+    required:
+    - clusterId
+    - projectId
+    type: object
+  templateContent:
+    properties:
+      annotations:
+        type: map[string]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      data:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      removed:
+        type: date
+      uuid:
+        type: string
+    type: object
+  templateStatus:
+    properties:
+      helmVersion:
+        type: string
+    type: object
+  templateVersion:
+    properties:
+      annotations:
+        type: map[string]
+      appReadme:
+        type: string
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      digest:
+        type: string
+      externalId:
+        type: string
+      files:
+        type: map[string]
+      kubeVersion:
+        type: string
+      labels:
+        type: map[string]
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      questions:
+        type: array[question]
+      rancherMaxVersion:
+        type: string
+      rancherMinVersion:
+        type: string
+      rancherVersion:
+        type: string
+      readme:
+        type: string
+      removed:
+        type: date
+      requiredNamespace:
+        type: string
+      state:
+        type: string
+      status:
+        type: templateVersionStatus
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      upgradeVersionLinks:
+        type: map[string]
+      uuid:
+        type: string
+      version:
+        type: string
+      versionDir:
+        type: string
+      versionName:
+        type: string
+      versionUrls:
+        type: array[string]
+    type: object
+  templateVersionSpec:
+    properties:
+      appReadme:
+        type: string
+      digest:
+        type: string
+      externalId:
+        type: string
+      files:
+        type: map[string]
+      kubeVersion:
+        type: string
+      questions:
+        type: array[question]
+      rancherMaxVersion:
+        type: string
+      rancherMinVersion:
+        type: string
+      rancherVersion:
+        type: string
+      readme:
+        type: string
+      requiredNamespace:
+        type: string
+      upgradeVersionLinks:
+        type: map[string]
+      version:
+        type: string
+      versionDir:
+        type: string
+      versionName:
+        type: string
+      versionUrls:
+        type: array[string]
+    type: object
+  templateVersionStatus:
+    properties:
+      helmVersion:
+        type: string
+    type: object
+  timeSeries:
+    properties:
+      name:
+        type: string
+      points:
+        type: array[array[float]]
+    type: object
+  token:
+    properties:
+      annotations:
+        type: map[string]
+      authProvider:
+        type: string
+      clusterId:
+        type: reference[cluster]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      current:
+        default: false
+        type: boolean
+      description:
+        type: string
+      enabled:
+        default: true
+        type: boolean
+      expired:
+        default: false
+        type: boolean
+      expiresAt:
+        type: string
+      groupPrincipals:
+        type: array[reference[principal]]
+      isDerived:
+        default: false
+        type: boolean
+      labels:
+        type: map[string]
+      lastUpdateTime:
+        type: string
+      name:
+        type: dnsLabel
+      ownerReferences:
+        type: array[ownerReference]
+      providerInfo:
+        type: map[string]
+      removed:
+        type: date
+      token:
+        type: string
+      ttl:
+        default: 0
+        type: int
+      userId:
+        type: reference[user]
+      userPrincipal:
+        type: reference[principal]
+      uuid:
+        type: string
+    type: object
+  updateMultiClusterAppTargetsInput:
+    properties:
+      answers:
+        type: array[answer]
+      projects:
+        type: array[reference[project]]
+    required:
+    - projects
+    type: object
+  upgradeStrategy:
+    properties:
+      rollingUpdate:
+        type: rollingUpdate
+    type: object
+  user:
+    properties:
+      annotations:
+        type: map[string]
+      conditions:
+        type: array[userCondition]
+      created:
+        type: date
+      creatorId:
+        type: reference[/v3/schemas/user]
+      description:
+        type: string
+      enabled:
+        default: true
+        type: boolean
+      id:
+        type: dnsLabel
+      labels:
+        type: map[string]
+      me:
+        default: false
+        type: boolean
+      mustChangePassword:
+        default: false
+        type: boolean
+      name:
+        type: string
+      ownerReferences:
+        type: array[ownerReference]
+      password:
+        type: string
+      principalIds:
+        type: array[reference[principal]]
+      removed:
+        type: date
+      state:
+        type: string
+      transitioning:
+        options:
+        - 'yes'
+        - 'no'
+        - error
+        type: enum
+      transitioningMessage:
+        type: string
+      username:
+        type: string
+      uuid:
+        type: string
+    type: object
+  userCondition:
+    properties:
+      lastTransitionTime:
+        type: string
+      lastUpdateTime:
+        type: string
+      message:
+        type: string
+      reason:
+        type: string
+      status:
+        type: string
+      type:
+        type: string
+    type: object
+  values:
+    properties:
+      boolValue:
+        default: false
+        type: boolean
+      intValue:
+        default: 0
+        type: int
+      stringSliceValue:
+        type: array[string]
+      stringValue:
+        type: string
+    type: object
+  virtualCenterConfig:
+    properties:
+      datacenters:
+        type: string
+      password:
+        type: password
+      port:
+        type: string
+      soap-roundtrip-count:
+        default: 0
+        type: int
+      user:
+        type: string
+    type: object
+  vmwarevsphereconfig:
+    properties:
+      boot2dockerUrl:
+        default: ''
+        description: vSphere URL for boot2docker image
+        type: string
+      cfgparam:
+        description: vSphere vm configuration parameters (used for guestinfo)
+        type: array[string]
+      cloneFrom:
+        default: ''
+        description: If you choose creation type clone a name of what you want to
+          clone is required
+        type: string
+      cloudConfig:
+        default: ''
+        description: Filepath to a cloud-config yaml file to put into the ISO user-data
+        type: string
+      cloudinit:
+        default: ''
+        description: vSphere cloud-init filepath or url to add to guestinfo, filepath
+          will be read and base64 encoded before adding
+        type: string
+      contentLibrary:
+        default: ''
+        description: If you choose to clone from a content library template specify
+          the name of the library
+        type: string
+      cpuCount:
+        default: '2'
+        description: vSphere CPU number for docker VM
+        type: string
+      creationType:
+        default: legacy
+        description: 'Creation type when creating a new virtual machine. Supported
+          values: vm, template, library, legacy'
+        type: string
+      customAttribute:
+        description: vSphere custom attribute, format key/value e.g. '200=my custom
+          value'
+        type: array[string]
+      datacenter:
+        default: ''
+        description: vSphere datacenter for virtual machine
+        type: string
+      datastore:
+        default: ''
+        description: vSphere datastore for virtual machine
+        type: string
+      datastoreCluster:
+        default: ''
+        description: vSphere datastore cluster for virtual machine
+        type: string
+      diskSize:
+        default: '20480'
+        description: vSphere size of disk for docker VM (in MB)
+        type: string
+      folder:
+        default: ''
+        description: vSphere folder for the docker VM. This folder must already exist
+          in the datacenter
+        type: string
+      hostsystem:
+        default: ''
+        description: vSphere compute resource where the docker VM will be instantiated.
+          This can be omitted if using a cluster with DRS
+        type: string
+      memorySize:
+        default: '2048'
+        description: vSphere size of memory for docker VM (in MB)
+        type: string
+      network:
+        description: vSphere network where the virtual machine will be attached
+        type: array[string]
+      password:
+        default: ''
+        description: vSphere password
+        type: password
+      pool:
+        default: ''
+        description: vSphere resource pool for docker VM
+        type: string
+      sshPassword:
+        default: tcuser
+        description: If using a non-B2D image you can specify the ssh password
+        type: string
+      sshPort:
+        default: '22'
+        description: If using a non-B2D image you can specify the ssh port
+        type: string
+      sshUser:
+        default: docker
+        description: If using a non-B2D image you can specify the ssh user
+        type: string
+      sshUserGroup:
+        default: staff
+        description: If using a non-B2D image the uploaded keys will need chown'ed,
+          defaults to staff e.g. docker:staff
+        type: string
+      tag:
+        description: vSphere tag id e.g. urn:xxx
+        type: array[string]
+      username:
+        default: ''
+        description: vSphere username
+        type: string
+      vappIpallocationpolicy:
+        default: ''
+        description: 'vSphere vApp IP allocation policy. Supported values are: dhcp,
+          fixed, transient and fixedAllocated'
+        type: string
+      vappIpprotocol:
+        default: ''
+        description: 'vSphere vApp IP protocol for this deployment. Supported values
+          are: IPv4 and IPv6'
+        type: string
+      vappProperty:
+        description: vSphere vApp properties
+        type: array[string]
+      vappTransport:
+        default: ''
+        description: 'vSphere OVF environment transports to use for properties. Supported
+          values are: iso and com.vmware.guestInfo'
+        type: string
+      vcenter:
+        default: ''
+        description: vSphere IP/hostname for vCenter
+        type: string
+      vcenterPort:
+        default: '443'
+        description: vSphere Port for vCenter
+        type: string
+    type: object
+  vmwarevspherecredentialconfig:
+    properties:
+      password:
+        default: ''
+        description: vSphere password
+        type: password
+      username:
+        default: ''
+        description: vSphere username
+        type: string
+      vcenter:
+        default: ''
+        description: vSphere IP/hostname for vCenter
+        type: string
+      vcenterPort:
+        default: '443'
+        description: vSphere Port for vCenter
+        type: string
+    required:
+    - username
+    - vcenter
+    - password
+    - vcenterPort
+    type: object
+  vsphereCloudProvider:
+    properties:
+      disk:
+        type: diskVsphereOpts
+      global:
+        type: globalVsphereOpts
+      network:
+        type: networkVshpereOpts
+      virtualCenter:
+        type: map[virtualCenterConfig]
+      workspace:
+        type: workspaceVsphereOpts
+    type: object
+  weaveNetworkProvider:
+    properties:
+      password:
+        type: password
+    type: object
+  webhookConfig:
+    properties:
+      proxyUrl:
+        type: string
+      url:
+        type: string
+    required:
+    - url
+    type: object
+  wechatConfig:
+    properties:
+      agent:
+        type: string
+      apiUrl:
+        type: string
+      corp:
+        type: string
+      defaultRecipient:
+        type: string
+      proxyUrl:
+        type: string
+      recipientType:
+        default: party
+        options:
+        - tag
+        - party
+        - user
+        type: enum
+      secret:
+        type: password
+    required:
+    - defaultRecipient
+    - recipientType
+    - agent
+    - secret
+    - corp
+    type: object
+  workloadRule:
+    properties:
+      availablePercentage:
+        default: 70
+        max: 100
+        min: 1
+        type: int
+      selector:
+        type: map[string]
+      workloadId:
+        type: string
+    required:
+    - availablePercentage
+    type: object
+  workspaceVsphereOpts:
+    properties:
+      datacenter:
+        type: string
+      default-datastore:
+        type: string
+      folder:
+        type: string
+      resourcepool-path:
+        type: string
+      server:
+        type: string
+    type: object
+  yAxis:
+    properties:
+      unit:
+        type: string
+    type: object
+paths:
+  /authconfigs:
+    get:
+      tags:
+      - authConfig
+    post:
+      tags:
+      - authConfig
+  /catalogs:
+    get:
+      tags:
+      - catalog
+    post:
+      tags:
+      - catalog
+  /cisbenchmarkversions:
+    get:
+      tags:
+      - cisBenchmarkVersion
+    post:
+      tags:
+      - cisBenchmarkVersion
+  /cisconfigs:
+    get:
+      tags:
+      - cisConfig
+    post:
+      tags:
+      - cisConfig
+  /cloudcredentials:
+    get:
+      tags:
+      - cloudCredential
+    post:
+      tags:
+      - cloudCredential
+  /clusteralertgroups:
+    get:
+      tags:
+      - clusterAlertGroup
+    post:
+      tags:
+      - clusterAlertGroup
+  /clusteralertrules:
+    get:
+      tags:
+      - clusterAlertRule
+    post:
+      tags:
+      - clusterAlertRule
+  /clusteralerts:
+    get:
+      tags:
+      - clusterAlert
+    post:
+      tags:
+      - clusterAlert
+  /clustercatalogs:
+    get:
+      tags:
+      - clusterCatalog
+    post:
+      tags:
+      - clusterCatalog
+  /clusterloggings:
+    get:
+      tags:
+      - clusterLogging
+    post:
+      tags:
+      - clusterLogging
+  /clustermonitorgraphs:
+    get:
+      tags:
+      - clusterMonitorGraph
+    post:
+      tags:
+      - clusterMonitorGraph
+  /clusterregistrationtokens:
+    get:
+      tags:
+      - clusterRegistrationToken
+    post:
+      tags:
+      - clusterRegistrationToken
+  /clusterroletemplatebindings:
+    get:
+      tags:
+      - clusterRoleTemplateBinding
+    post:
+      tags:
+      - clusterRoleTemplateBinding
+  /clusters:
+    get:
+      tags:
+      - cluster
+    post:
+      tags:
+      - cluster
+  /clusterscans:
+    get:
+      tags:
+      - clusterScan
+    post:
+      tags:
+      - clusterScan
+  /clustertemplaterevisions:
+    get:
+      tags:
+      - clusterTemplateRevision
+    post:
+      tags:
+      - clusterTemplateRevision
+  /clustertemplates:
+    get:
+      tags:
+      - clusterTemplate
+    post:
+      tags:
+      - clusterTemplate
+  /composeconfigs:
+    get:
+      tags:
+      - composeConfig
+    post:
+      tags:
+      - composeConfig
+  /dynamicschemas:
+    get:
+      tags:
+      - dynamicSchema
+    post:
+      tags:
+      - dynamicSchema
+  /etcdbackups:
+    get:
+      tags:
+      - etcdBackup
+    post:
+      tags:
+      - etcdBackup
+  /features:
+    get:
+      tags:
+      - feature
+    post:
+      tags:
+      - feature
+  /globalrolebindings:
+    get:
+      tags:
+      - globalRoleBinding
+    post:
+      tags:
+      - globalRoleBinding
+  /globalroles:
+    get:
+      tags:
+      - globalRole
+    post:
+      tags:
+      - globalRole
+  /groupmembers:
+    get:
+      tags:
+      - groupMember
+    post:
+      tags:
+      - groupMember
+  /groups:
+    get:
+      tags:
+      - group
+    post:
+      tags:
+      - group
+  /kontainerdrivers:
+    get:
+      tags:
+      - kontainerDriver
+    post:
+      tags:
+      - kontainerDriver
+  /ldapconfigs:
+    get:
+      tags:
+      - ldapConfig
+    post:
+      tags:
+      - ldapConfig
+  /managementsecrets:
+    get:
+      tags:
+      - managementSecret
+    post:
+      tags:
+      - managementSecret
+  /monitormetrics:
+    get:
+      tags:
+      - monitorMetric
+    post:
+      tags:
+      - monitorMetric
+  /multiclusterapprevisions:
+    get:
+      tags:
+      - multiClusterAppRevision
+    post:
+      tags:
+      - multiClusterAppRevision
+  /multiclusterapps:
+    get:
+      tags:
+      - multiClusterApp
+    post:
+      tags:
+      - multiClusterApp
+  /nodedrivers:
+    get:
+      tags:
+      - nodeDriver
+    post:
+      tags:
+      - nodeDriver
+  /nodepools:
+    get:
+      tags:
+      - nodePool
+    post:
+      tags:
+      - nodePool
+  /nodes:
+    get:
+      tags:
+      - node
+    post:
+      tags:
+      - node
+  /nodetemplates:
+    get:
+      tags:
+      - nodeTemplate
+    post:
+      tags:
+      - nodeTemplate
+  /notifiers:
+    get:
+      tags:
+      - notifier
+    post:
+      tags:
+      - notifier
+  /podsecuritypolicytemplateprojectbindings:
+    get:
+      tags:
+      - podSecurityPolicyTemplateProjectBinding
+    post:
+      tags:
+      - podSecurityPolicyTemplateProjectBinding
+  /podsecuritypolicytemplates:
+    get:
+      tags:
+      - podSecurityPolicyTemplate
+    post:
+      tags:
+      - podSecurityPolicyTemplate
+  /preferences:
+    get:
+      tags:
+      - preference
+    post:
+      tags:
+      - preference
+  /principals:
+    get:
+      tags:
+      - principal
+    post:
+      tags:
+      - principal
+  /projectalertgroups:
+    get:
+      tags:
+      - projectAlertGroup
+    post:
+      tags:
+      - projectAlertGroup
+  /projectalertrules:
+    get:
+      tags:
+      - projectAlertRule
+    post:
+      tags:
+      - projectAlertRule
+  /projectalerts:
+    get:
+      tags:
+      - projectAlert
+    post:
+      tags:
+      - projectAlert
+  /projectcatalogs:
+    get:
+      tags:
+      - projectCatalog
+    post:
+      tags:
+      - projectCatalog
+  /projectloggings:
+    get:
+      tags:
+      - projectLogging
+    post:
+      tags:
+      - projectLogging
+  /projectmonitorgraphs:
+    get:
+      tags:
+      - projectMonitorGraph
+    post:
+      tags:
+      - projectMonitorGraph
+  /projectnetworkpolicies:
+    get:
+      tags:
+      - projectNetworkPolicy
+    post:
+      tags:
+      - projectNetworkPolicy
+  /projectroletemplatebindings:
+    get:
+      tags:
+      - projectRoleTemplateBinding
+    post:
+      tags:
+      - projectRoleTemplateBinding
+  /projects:
+    get:
+      tags:
+      - project
+    post:
+      tags:
+      - project
+  /rkeaddons:
+    get:
+      tags:
+      - rkeAddon
+    post:
+      tags:
+      - rkeAddon
+  /rkek8sserviceoptions:
+    get:
+      tags:
+      - rkeK8sServiceOption
+    post:
+      tags:
+      - rkeK8sServiceOption
+  /rkek8ssystemimages:
+    get:
+      tags:
+      - rkeK8sSystemImage
+    post:
+      tags:
+      - rkeK8sSystemImage
+  /roletemplates:
+    get:
+      tags:
+      - roleTemplate
+    post:
+      tags:
+      - roleTemplate
+  /settings:
+    get:
+      tags:
+      - setting
+    post:
+      tags:
+      - setting
+  /subscribe:
+    get:
+      tags:
+      - subscribe
+    post:
+      tags:
+      - subscribe
+  /templates:
+    get:
+      tags:
+      - template
+    post:
+      tags:
+      - template
+  /templateversions:
+    get:
+      tags:
+      - templateVersion
+    post:
+      tags:
+      - templateVersion
+  /tokens:
+    get:
+      tags:
+      - token
+    post:
+      tags:
+      - token
+  /users:
+    get:
+      tags:
+      - user
+    post:
+      tags:
+      - user
